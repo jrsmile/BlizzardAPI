@@ -14,8 +14,8 @@ class PlayableClass extends Endpoint
 
     public function __construct(BlizzardApiContext $blizzardApiContext)
     {
-        $this->namespace  = 'static-' . strtolower($this->apiContext->getRegion());
         parent::__construct($blizzardApiContext);
+        $this->namespace  = 'static-' . strtolower($this->apiContext->getRegion());
     }
 
     public function get($classId){

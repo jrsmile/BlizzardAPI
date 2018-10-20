@@ -13,8 +13,8 @@ class RegionIndex extends Endpoint
 
     public function __construct(BlizzardApiContext $blizzardApiContext)
     {
-        $this->namespace  = 'dynamic-' . strtolower($this->apiContext->getRegion());
         parent::__construct($blizzardApiContext);
+        $this->namespace  = 'dynamic-' . strtolower($this->apiContext->getRegion());
     }
 
     public function get($realmSlug){
