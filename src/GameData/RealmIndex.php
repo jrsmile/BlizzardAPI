@@ -6,9 +6,9 @@ namespace BlizzardApiService\GameData;
 use BlizzardApiService\Context\BlizzardApiContext;
 use BlizzardApiService\Endpoint;
 
-class ConnectedRealm extends Endpoint
+class RealmIndex extends Endpoint
 {
-    protected $endpointUrl = '/data/wow/connected-realm/';
+    protected $endpointUrl = '/data/wow/realm/';
     protected $namespace   = true;
 
     public function __construct(BlizzardApiContext $blizzardApiContext)
@@ -17,8 +17,7 @@ class ConnectedRealm extends Endpoint
         parent::__construct($blizzardApiContext);
     }
 
-    public function get($realmId){
-        $this->endpointUrl .= $realmId;
+    public function get(){
         return $this->_sendRequest();
     }
 }

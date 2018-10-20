@@ -18,20 +18,25 @@ class Endpoint
     protected $endpointUrl = false;
     protected $language    = false;
     protected $namespace   = false;
+    protected $parameters  = [];
 
     /** @var BlizzardApiContext */
     protected $apiContext  = false;
 
+    public function __construct(BlizzardApiContext $blizzardApiContext)
+    {
+        $this->apiContext = $blizzardApiContext;
+    }
+
     protected function _sendRequest(){
         $url        = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
 
-        $parameters = [];
         if($this->namespace !== false){
-            $parameters['namespace'] = $this->namespace;
+            $this->parameters['namespace'] = $this->namespace;
         }
-        $parameters['locale']       = $this->apiContext->getLocale();
-        $parameters['access_token'] = $this->apiContext->getAccessToken();
-        $finalUrl   = $url . '?' . http_build_query($parameters);
+        $this->parameters['locale']       = $this->apiContext->getLocale();
+        $this->parameters['access_token'] = $this->apiContext->getAccessToken();
+        $finalUrl   = $url . '?' . http_build_query($this->parameters);
         $client = new Client();
         $response = $client->request('GET', $finalUrl);
 

@@ -1,0 +1,15 @@
+<?php
+
+namespace BlizzardApiService\Community;
+
+use BlizzardApiService\Endpoint;
+
+class Zone extends Endpoint
+{
+    protected $endpointUrl = '/wow/zone/';
+
+    public function get($zoneId){
+        $this->endpointUrl .= $zoneId;
+        return $this->_sendRequest();
+    }
+}
