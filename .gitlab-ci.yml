@@ -1,0 +1,43 @@
+image: php:latest
+
+stages:
+  - build
+  - test
+
+cache:
+  paths:
+  - vendor/
+
+composer:
+  stage: build
+  script:
+    - export APP_ENV=testing
+    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+    - php composer.phar install
+
+
+phpUnit:
+  stage: test
+  script:
+    - cat .env
+    - php vendor/bin/phpunit --colors
+
+coverageTest:
+  stage: test
+  script:
+    - php vendor/bin/phpunit --colors --debug --coverage-text
+
+codeSniffer:
+  stage: test
+  script:
+    - php vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
+    - php vendor/bin/phpcs --standard=PSR4 -w --colors app/
+
+phpMess:
+  stage: test
+  script:
+    - php vendor/bin/phpmd src/ text cleancode,controversial,codesize,design,naming,unusedcode
