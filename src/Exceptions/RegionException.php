@@ -1,15 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jared
- * Date: 20.10.2018
- * Time: 13:32
- */
 
 namespace BlizzardApiService\Exceptions;
 
-
-use Throwable;
 
 class RegionException extends \Exception
 {

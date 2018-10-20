@@ -8,6 +8,10 @@ cache:
   paths:
   - vendor/
 
+before_script:
+  - apt-get update
+  - apt-get install --assume-yes git zip unzip
+
 composer:
   stage: build
   script:
@@ -18,23 +22,6 @@ composer:
     - php composer-setup.php
     - php -r "unlink('composer-setup.php');"
     - php composer.phar install
-
-
-phpUnit:
-  stage: test
-  script:
-    - php vendor/bin/phpunit --colors
-
-coverageTest:
-  stage: test
-  script:
-    - php vendor/bin/phpunit --colors --debug --coverage-text
-
-codeSniffer:
-  stage: test
-  script:
-    - php vendor/bin/phpcs --config-set ignore_warnings_on_exit 1
-    - php vendor/bin/phpcs --standard=PSR4 -w --colors src/
 
 phpMess:
   stage: test
