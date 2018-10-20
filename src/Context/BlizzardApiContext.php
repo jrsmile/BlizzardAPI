@@ -4,7 +4,6 @@ namespace BlizzardApiService\Context;
 
 use BlizzardApiService\Settings\ApiUrls;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 
 class BlizzardApiContext
 {
