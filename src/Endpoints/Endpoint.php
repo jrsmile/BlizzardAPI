@@ -12,6 +12,7 @@ namespace BlizzardApiService\Endpoints;
 use BlizzardApiService\Context\BlizzardApiContext;
 use BlizzardApiService\Settings\ApiUrls;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ServerException;
 
 class Endpoint
 {
@@ -28,7 +29,7 @@ class Endpoint
         $this->apiContext = $blizzardApiContext;
     }
 
-    protected function sendRequest(){
+    protected function sendRequest($counter = 1){
         $url        = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
 
         if($this->namespace !== false){
@@ -38,7 +39,15 @@ class Endpoint
         $this->parameters['access_token'] = $this->apiContext->getAccessToken();
         $finalUrl   = $url . '?' . http_build_query($this->parameters);
         $client = new Client();
-        $response = $client->request('GET', $finalUrl);
+        try {
+            $response = $client->request('GET', $finalUrl);
+        }catch (ServerException $exception){
+            if($counter <= $this->apiContext->getRetryLimit()){
+                sleep($this->apiContext->getRetrySleepTime());
+                return $this->sendRequest(++$counter);
+            }
+            throw $exception;
+        }
 
         if($response->getStatusCode() !== 200){
             throw new \Exception(

@@ -15,6 +15,8 @@ class BlizzardApiContext
     private $accessToken  = false;
     private $expiresIn    = false;
     private $tokenType    = false;
+    private $retries      = 3;
+    private $sleepTime    = 2;
 
     /**
      * BlizzardApiProvider constructor.
@@ -87,5 +89,13 @@ class BlizzardApiContext
 
     public function getLocale(){
         return $this->locale;
+    }
+
+    public function getRetryLimit(){
+        return $this->retries;
+    }
+
+    public function getRetrySleepTime(){
+        return $this->sleepTime;
     }
 }
