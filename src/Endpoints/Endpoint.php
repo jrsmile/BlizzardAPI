@@ -21,6 +21,8 @@ class Endpoint
     protected $namespace   = false;
     protected $parameters  = [];
 
+    protected $wholeUrl    = false;
+
     /** @var BlizzardApiContext */
     protected $apiContext  = false;
 
@@ -30,8 +32,11 @@ class Endpoint
     }
 
     protected function sendRequest($counter = 1){
-        $url        = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
-
+        if( $this->wholeUrl === false) {
+            $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
+        }else{
+            $url = $this->wholeUrl;
+        }
         if($this->namespace !== false){
             $this->parameters['namespace'] = $this->namespace;
         }
