@@ -3,6 +3,7 @@
   "description": "Access wrapper for the Blizzard BattleNet API",
   "type": "library",
   "license": "MIT",
+  "version": 0.1,
   "authors": [
     {
       "name": "Jared Falkenhagen",
