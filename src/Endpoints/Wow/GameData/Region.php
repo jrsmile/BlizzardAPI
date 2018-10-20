@@ -1,6 +1,6 @@
 <?php
 
-namespace BlizzardApiService\Endpoints\Endpoints\Wow\GameData;
+namespace BlizzardApiService\Endpoints\Wow\GameData;
 
 
 use BlizzardApiService\Context\BlizzardApiContext;
