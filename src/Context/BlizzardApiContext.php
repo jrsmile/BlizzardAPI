@@ -43,9 +43,10 @@ class BlizzardApiContext
 
         if ($accessToken !== false) {
             $this->accessToken = $accessToken;
-        }else{
-            $this->getAccessToken();
+            return;
         }
+        $this->getAccessToken();
+
     }
 
 
