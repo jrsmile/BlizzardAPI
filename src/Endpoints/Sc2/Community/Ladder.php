@@ -1,0 +1,15 @@
+<?php
+
+namespace BlizzardApiService\Endpoints\Endpoints\Sc2\Community;
+
+use BlizzardApiService\Endpoints\Endpoint;
+
+class Ladder extends Endpoint
+{
+    protected $endpointUrl = '/sc2/ladder/';
+
+    public function get($ladderId){
+        $this->endpointUrl .= $ladderId;
+        return $this->sendRequest();
+    }
+}
