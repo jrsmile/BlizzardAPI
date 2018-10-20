@@ -8,6 +8,10 @@ cache:
   paths:
   - vendor/
 
+before_script:
+  - apt-get update
+  - apt-get install --assume-yes git zip unzip
+
 composer:
   stage: build
   script:
