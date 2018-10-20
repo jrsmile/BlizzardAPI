@@ -1,6 +1,7 @@
 {
   "name": "jfalkenhagen/blizzard-api-service",
   "description": "Access wrapper for the Blizzard BattleNet API",
+  "url": "https://gitlab.jfdnk.de/open-source/blizzard-api-service/",
   "type": "library",
   "license": "MIT",
   "version": 0.1,
