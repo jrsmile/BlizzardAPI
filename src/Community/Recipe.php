@@ -10,6 +10,6 @@ class Recipe extends Endpoint
 
     public function get($recipeId){
         $this->endpointUrl .= $recipeId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

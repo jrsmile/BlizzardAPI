@@ -13,6 +13,6 @@ class PetStats extends Endpoint
         $this->parameters['level']     = $level;
         $this->parameters['breedId']   = $breedId;
         $this->parameters['qualityId'] = $qualityId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

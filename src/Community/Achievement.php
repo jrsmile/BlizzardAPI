@@ -10,6 +10,6 @@ class Achievement extends Endpoint
 
     public function get($achievementId){
         $this->endpointUrl .= $achievementId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

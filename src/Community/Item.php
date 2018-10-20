@@ -10,6 +10,6 @@ class Item extends Endpoint
 
     public function get($itemId){
         $this->endpointUrl .= $itemId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

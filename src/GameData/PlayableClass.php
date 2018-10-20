@@ -20,6 +20,6 @@ class PlayableClass extends Endpoint
 
     public function get($classId){
         $this->endpointUrl .= $classId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

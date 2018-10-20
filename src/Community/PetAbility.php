@@ -10,6 +10,6 @@ class PetAbility extends Endpoint
 
     public function get($abilityId){
         $this->endpointUrl .= $abilityId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

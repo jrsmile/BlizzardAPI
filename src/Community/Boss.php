@@ -10,6 +10,6 @@ class Boss extends Endpoint
 
     public function get($bossId){
         $this->endpointUrl .= $bossId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

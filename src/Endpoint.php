@@ -28,7 +28,7 @@ class Endpoint
         $this->apiContext = $blizzardApiContext;
     }
 
-    protected function _sendRequest(){
+    protected function sendRequest(){
         $url        = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
 
         if($this->namespace !== false){

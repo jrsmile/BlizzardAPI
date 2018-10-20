@@ -27,7 +27,7 @@ class CharacterProfile extends Endpoint
     const FIELD_TITLES       = 131072;
     const FIELD_AUDIT        = 262144;
 
-    private $_fields = [
+    private $fields = [
         1      => 'achievements',
         2      => 'appearance',
         4      => 'feed',
@@ -52,14 +52,14 @@ class CharacterProfile extends Endpoint
     protected $endpointUrl = '/wow/character/';
 
     public function get($realmSlug, $characterName, $fieldInt){
-        $this->parameters['fields'] = $this->_calcFields($fieldInt);
+        $this->parameters['fields'] = $this->calcFields($fieldInt);
         $this->endpointUrl         .= $realmSlug . '/' . $characterName;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 
-    private function _calcFields($fieldInt){
+    private function calcFields($fieldInt){
         $usedFields = [];
-        $possibleFields = array_reverse($this->_fields, true);
+        $possibleFields = array_reverse($this->fields, true);
         foreach ($possibleFields as $fieldWorth => $field){
             if($fieldInt >= $fieldWorth){
                 $usedFields[] = $field;

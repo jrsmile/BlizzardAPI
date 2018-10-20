@@ -10,6 +10,6 @@ class Quest extends Endpoint
 
     public function get($questId){
         $this->endpointUrl .= $questId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

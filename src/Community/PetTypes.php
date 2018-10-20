@@ -9,6 +9,6 @@ class PetTypes extends Endpoint
     protected $endpointUrl = '/wow/data/pet/types';
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

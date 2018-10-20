@@ -9,6 +9,6 @@ class GuildAchievements extends Endpoint
     protected $endpointUrl = '/wow/data/guild/achievements';
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

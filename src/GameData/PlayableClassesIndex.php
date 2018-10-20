@@ -18,6 +18,6 @@ class PlayableClassesIndex extends Endpoint
     }
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

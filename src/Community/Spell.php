@@ -10,6 +10,6 @@ class Spell extends Endpoint
 
     public function get($spellId){
         $this->endpointUrl .= $spellId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

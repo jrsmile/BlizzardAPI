@@ -9,6 +9,6 @@ class Battlegroups extends Endpoint
     protected $endpointUrl = '/wow/data/battlegroups/';
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

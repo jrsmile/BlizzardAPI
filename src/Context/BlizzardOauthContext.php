@@ -7,12 +7,6 @@ class BlizzardOauthContext
     private $clientId     = false;
     private $clientSecret = false;
     private $redirectUrl  = false;
-    private $baseUrl      = false;
-    private $authBaseUrl  = false;
-    private $namespace    = '';
-    private $locale       = false;
-
-    private $accessToken  = false;
 
     /**
      * BlizzardApiProvider constructor.
@@ -26,27 +20,15 @@ class BlizzardOauthContext
      * @internal param array $options
      * @internal param array $collaborators
      */
-    public function __construct($clientId, $clientSecret, $redirectUrl, $namespace, $locale, $accessToken = false)
+    public function __construct($clientId, $clientSecret, $redirectUrl)
     {
         $this->clientId     = $clientId;
         $this->clientSecret = $clientSecret;
         $this->redirectUrl  = $redirectUrl;
-        $this->namespace    = $namespace;
-        $this->locale       = $locale;
-
-        if($accessToken !== false){
-            $this->accessToken = $accessToken;
-        }else{
-            $this->_getAccessToken();
-        }
     }
 
-
-    private function _getAccessToken(){
-
-    }
 
     public function getAccessToken(){
-        return $this->accessToken;
+
     }
 }

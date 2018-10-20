@@ -10,6 +10,6 @@ class Zone extends Endpoint
 
     public function get($zoneId){
         $this->endpointUrl .= $zoneId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

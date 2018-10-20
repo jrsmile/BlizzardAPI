@@ -10,6 +10,6 @@ class PetSpecies extends Endpoint
 
     public function get($speciesId){
         $this->endpointUrl .= $speciesId;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

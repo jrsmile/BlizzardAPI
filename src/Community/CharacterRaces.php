@@ -9,6 +9,6 @@ class CharacterRaces extends Endpoint
     protected $endpointUrl = '/wow/data/character/races';
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

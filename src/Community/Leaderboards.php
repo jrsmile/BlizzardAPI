@@ -17,6 +17,6 @@ class Leaderboards extends Endpoint
             );
         }
         $this->endpointUrl .= $bracket;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

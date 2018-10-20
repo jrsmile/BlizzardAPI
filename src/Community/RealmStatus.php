@@ -10,6 +10,6 @@ class RealmStatus extends Endpoint
 
     public function get($realmSlug){
         $this->endpointUrl .= $realmSlug;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

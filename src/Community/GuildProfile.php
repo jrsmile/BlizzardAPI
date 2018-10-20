@@ -22,12 +22,12 @@ class GuildProfile extends Endpoint
     protected $endpointUrl = '/wow/guild/';
 
     public function get($realmSlug, $guildName, $fieldInt = self::FIELD_MEMBERS){
-        $this->parameters['fields'] = $this->_calcFields($fieldInt);
+        $this->parameters['fields'] = $this->calcFields($fieldInt);
         $this->endpointUrl         .= $realmSlug . '/' . $guildName;
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 
-    private function _calcFields($fieldInt){
+    private function calcFields($fieldInt){
         $usedFields = [];
         $possibleFields = array_reverse($this->_fields, true);
         foreach ($possibleFields as $fieldWorth => $field){

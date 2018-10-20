@@ -9,6 +9,6 @@ class CharacterAchievements extends Endpoint
     protected $endpointUrl = '/wow/data/character/achievements';
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

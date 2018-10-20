@@ -44,12 +44,15 @@ class BlizzardApiContext
         if ($accessToken !== false) {
             $this->accessToken = $accessToken;
         }else{
-            $this->_getAccessToken();
+            $this->getAccessToken();
         }
     }
 
 
-    private function _getAccessToken(){
+    public function getAccessToken(){
+        if ($this->accessToken !== false) {
+            return $this->accessToken;
+        }
         $client   = new Client();
         $response = $client->request('POST', ApiUrls::getTokenUrl($this->region) . '?grant_type=client_credentials', [
             'headers' => [
@@ -66,9 +69,6 @@ class BlizzardApiContext
         $this->accessToken = $result->access_token;
         $this->tokenType   = $result->token_type;
         $this->expiresIn  = $result->expires_in;
-    }
-
-    public function getAccessToken(){
         return $this->accessToken;
     }
 

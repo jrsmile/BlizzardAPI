@@ -9,6 +9,6 @@ class GuildPerks extends Endpoint
     protected $endpointUrl = '/wow/data/guild/perks';
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }

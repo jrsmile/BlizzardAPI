@@ -9,6 +9,6 @@ class RegionLeaderboard extends Endpoint
     protected $endpointUrl = '/wow/challenge/region';
 
     public function get(){
-        return $this->_sendRequest();
+        return $this->sendRequest();
     }
 }
