@@ -42,7 +42,12 @@ class Endpoint
         }
         $this->parameters['locale']       = $this->apiContext->getLocale();
         $this->parameters['access_token'] = $this->apiContext->getAccessToken();
-        $finalUrl   = $url . '?' . http_build_query($this->parameters);
+        if(strpos($url, '?') !== false){
+            $splitter = '&';
+        }else{
+            $splitter = '?';
+        }
+        $finalUrl   = $url . $splitter . http_build_query($this->parameters);
         $client = new Client();
         try {
             $response = $client->request('GET', $finalUrl);
