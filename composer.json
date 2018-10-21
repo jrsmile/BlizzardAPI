@@ -4,7 +4,7 @@
   "url": "https://gitlab.jfdnk.de/open-source/blizzard-api-service/",
   "type": "library",
   "license": "MIT",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "authors": [
     {
       "name": "Jared Falkenhagen",
