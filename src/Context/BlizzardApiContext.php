@@ -13,7 +13,7 @@ class BlizzardApiContext
     private $baseUrl      = false;
     private $locale       = false;
     private $accessToken  = false;
-    private $expiresIn    = false;
+    private $expiresAt    = false;
     private $tokenType    = false;
     private $retries      = 3;
     private $sleepTime    = 2;
@@ -53,7 +53,7 @@ class BlizzardApiContext
 
 
     public function getAccessToken(){
-        if ($this->accessToken !== false) {
+        if ($this->accessToken !== false && $this->expiresAt > time()) {
             return $this->accessToken;
         }
         $client   = new Client();
@@ -71,7 +71,7 @@ class BlizzardApiContext
         $result = json_decode((string) $response->getBody());
         $this->accessToken = $result->access_token;
         $this->tokenType   = $result->token_type;
-        $this->expiresIn  = $result->expires_in;
+        $this->expiresAt   = time() + $result->expires_in;
         return $this->accessToken;
     }
 
@@ -79,8 +79,8 @@ class BlizzardApiContext
         return $this->tokenType;
     }
 
-    public function getExpiresIn(){
-        return $this->expiresIn;
+    public function getExpiresAt(){
+        return $this->expiresAt;
     }
 
     public function getRegion(){
