@@ -6,7 +6,7 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class PetSpecies extends Endpoint
 {
-    protected $endpointUrl = '/wow/pet/ability/';
+    protected $endpointUrl = '/wow/pet/species/';
 
     public function get($speciesId){
         $this->requestUrl = $this->endpointUrl . $speciesId;
