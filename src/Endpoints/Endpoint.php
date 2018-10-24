@@ -17,6 +17,7 @@ use GuzzleHttp\Exception\ServerException;
 class Endpoint
 {
     protected $endpointUrl = false;
+    protected $requestUrl  = false;
     protected $language    = false;
     protected $namespace   = false;
     protected $parameters  = [];
@@ -33,7 +34,12 @@ class Endpoint
 
     protected function sendRequest($counter = 1){
         if( $this->wholeUrl === false) {
-            $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
+            if($this->requestUrl != false){
+                $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->requestUrl;
+                $this->requestUrl = false;
+            }else{
+                $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
+            }
         }else{
             $url = $this->wholeUrl;
         }
