@@ -9,7 +9,7 @@ class PetSpecies extends Endpoint
     protected $endpointUrl = '/wow/pet/ability/';
 
     public function get($speciesId){
-        $this->endpointUrl .= $speciesId;
+        $this->requestUrl = $this->endpointUrl . $speciesId;
         return $this->sendRequest();
     }
 }
