@@ -53,7 +53,8 @@ class CharacterProfile extends Endpoint
 
     public function get($realmSlug, $characterName, $fieldInt){
         $this->parameters['fields'] = $this->calcFields($fieldInt);
-        $this->endpointUrl         .= $realmSlug . '/' . $characterName;
+        $this->requestUrl = $this->endpointUrl . $realmSlug . '/' . $characterName;
+
         return $this->sendRequest();
     }
 
