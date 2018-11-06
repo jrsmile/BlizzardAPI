@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Jared
- * Date: 20.10.2018
- * Time: 12:43
- */
 
 namespace BlizzardApiService\Endpoints;
 
@@ -16,11 +10,12 @@ use GuzzleHttp\Exception\ServerException;
 
 class Endpoint
 {
-    protected $endpointUrl = false;
-    protected $requestUrl  = false;
-    protected $language    = false;
-    protected $namespace   = false;
-    protected $parameters  = [];
+    protected $endpointUrl   = false;
+    protected $requestUrl    = false;
+    protected $language      = false;
+    protected $namespace     = false;
+    protected $parameters    = [];
+
 
     protected $wholeUrl    = false;
 
@@ -55,6 +50,11 @@ class Endpoint
         }
         $finalUrl   = $url . $splitter . http_build_query($this->parameters);
         $client = new Client();
+
+        if($this->apiContext->isProfiling()){
+            $measureStart = microtime(true);
+        }
+
         try {
             $response = $client->request('GET', $finalUrl);
         }catch (ServerException $exception){
@@ -63,6 +63,11 @@ class Endpoint
                 return $this->sendRequest(++$counter);
             }
             throw $exception;
+        }
+
+        if($this->apiContext->isProfiling()){
+            $requestTime = microtime(true) - $measureStart;
+            $this->apiContext->addMeasurement(get_class(), $requestTime);
         }
 
         if($response->getStatusCode() !== 200){

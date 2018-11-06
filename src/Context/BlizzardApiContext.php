@@ -7,16 +7,19 @@ use GuzzleHttp\Client;
 
 class BlizzardApiContext
 {
-    private $clientId     = false;
-    private $clientSecret = false;
-    private $region       = false;
-    private $baseUrl      = false;
-    private $locale       = false;
-    private $accessToken  = false;
-    private $expiresAt    = false;
-    private $tokenType    = false;
-    private $retries      = 3;
-    private $sleepTime    = 2;
+    private $clientId      = false;
+    private $clientSecret  = false;
+    private $region        = false;
+    private $baseUrl       = false;
+    private $locale        = false;
+    private $accessToken   = false;
+    private $expiresAt     = false;
+    private $tokenType     = false;
+    private $retries       = 3;
+    private $sleepTime     = 2;
+    private $profiling     = false;
+    private $profilingData = [];
+
 
     /**
      * BlizzardApiProvider constructor.
@@ -97,5 +100,42 @@ class BlizzardApiContext
 
     public function getRetrySleepTime(){
         return $this->sleepTime;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProfiling(): bool
+    {
+        return $this->profiling;
+    }
+
+    /**
+     * @param bool $profiling
+     */
+    public function setProfiling(bool $profiling): void
+    {
+        $this->profiling = $profiling;
+    }
+
+    public function addMeasurement(string $className, float $runtime): void
+    {
+        if(!isset($this->profilingData[$className])){
+            $this->profilingData[$className] = [];
+        }
+        $this->profilingData[$className][] = $runtime;
+    }
+
+    public function getProfilingData(){
+        $result = [];
+        foreach ($this->profilingData as $endpoint => $data){
+            $result[$endpoint] = [
+                'min'   => min($data),
+                'max'   => max($data),
+                'avg'   => array_sum($data) / count($data),
+                'count' => count($data),
+            ];
+        }
+        return $result;
     }
 }
