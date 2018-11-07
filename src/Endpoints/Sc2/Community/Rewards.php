@@ -9,7 +9,7 @@ class Rewards extends Endpoint
     protected $endpointUrl = '/sc2/data/rewards';
 
     public function get($achievementId){
-        $this->endpointUrl .= $achievementId;
+        $this->requestUrl .= $achievementId;
         return $this->sendRequest();
     }
 }

@@ -9,7 +9,7 @@ class SeasonLeaderboard extends Endpoint
     protected $endpointUrl = '/data/d3/season/';
 
     public function get($seasonId, $leaderboard){
-        $this->endpointUrl .= "$seasonId/leaderboard/$leaderboard";
+        $this->requestUrl .= "$seasonId/leaderboard/$leaderboard";
         return $this->sendRequest();
     }
 }

@@ -9,7 +9,7 @@ class Artisan extends Endpoint
     protected $endpointUrl = '/d3/data/artisan/';
 
     public function get($artisanSlug){
-        $this->endpointUrl .= $artisanSlug;
+        $this->requestUrl .= $artisanSlug;
         return $this->sendRequest();
     }
 }

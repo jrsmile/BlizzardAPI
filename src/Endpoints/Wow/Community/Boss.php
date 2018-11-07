@@ -9,7 +9,7 @@ class Boss extends Endpoint
     protected $endpointUrl = '/wow/boss/';
 
     public function get($bossId){
-        $this->endpointUrl .= $bossId;
+        $this->requestUrl .= $bossId;
         return $this->sendRequest();
     }
 }

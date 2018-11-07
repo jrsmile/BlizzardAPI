@@ -9,7 +9,7 @@ class CharacterClass extends Endpoint
     protected $endpointUrl = '/d3/data/hero/';
 
     public function get($classSlug){
-        $this->endpointUrl .= $classSlug;
+        $this->requestUrl .= $classSlug;
         return $this->sendRequest();
     }
 }

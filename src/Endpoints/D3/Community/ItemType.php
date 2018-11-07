@@ -9,7 +9,7 @@ class ItemType extends Endpoint
     protected $endpointUrl = '/d3/data/item-type/';
 
     public function get($itemTypeSlug){
-        $this->endpointUrl .= $itemTypeSlug;
+        $this->requestUrl .= $itemTypeSlug;
         return $this->sendRequest();
     }
 }

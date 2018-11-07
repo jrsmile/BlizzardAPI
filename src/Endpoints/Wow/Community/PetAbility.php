@@ -9,7 +9,7 @@ class PetAbility extends Endpoint
     protected $endpointUrl = '/wow/pet/ability/';
 
     public function get($abilityId){
-        $this->endpointUrl .= $abilityId;
+        $this->requestUrl .= $abilityId;
         return $this->sendRequest();
     }
 }

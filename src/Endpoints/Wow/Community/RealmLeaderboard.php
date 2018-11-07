@@ -9,7 +9,7 @@ class RealmLeaderboard extends Endpoint
     protected $endpointUrl = '/wow/challenge/';
 
     public function get($realmSlug){
-        $this->endpointUrl .= $realmSlug;
+        $this->requestUrl .= $realmSlug;
         return $this->sendRequest();
     }
 }
