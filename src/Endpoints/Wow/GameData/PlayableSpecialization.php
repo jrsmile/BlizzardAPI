@@ -18,7 +18,7 @@ class PlayableSpecialization extends Endpoint
     }
 
     public function get($specializationId){
-        $this->endpointUrl .= $specializationId;
+        $this->requestUrl .= $specializationId;
         return $this->sendRequest();
     }
 }

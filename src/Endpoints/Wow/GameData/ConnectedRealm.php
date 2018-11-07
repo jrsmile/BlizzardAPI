@@ -18,7 +18,7 @@ class ConnectedRealm extends Endpoint
     }
 
     public function get($realmId){
-        $this->endpointUrl .= $realmId;
+        $this->requestUrl .= $realmId;
         return $this->sendRequest();
     }
 }

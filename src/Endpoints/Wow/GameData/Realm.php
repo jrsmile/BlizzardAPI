@@ -18,7 +18,7 @@ class Realm extends Endpoint
     }
 
     public function get($realmSlug){
-        $this->endpointUrl .= $realmSlug;
+        $this->requestUrl .= $realmSlug;
         return $this->sendRequest();
     }
 }

@@ -19,7 +19,7 @@ class Region extends Endpoint
     }
 
     public function get($regionId){
-        $this->endpointUrl .= $regionId;
+        $this->requestUrl .= $regionId;
         return $this->sendRequest();
     }
 }
