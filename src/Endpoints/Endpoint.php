@@ -3,9 +3,8 @@
 namespace BlizzardApiService\Endpoints;
 
 
-use BlizzardApiService\Context\BlizzardApiContext;
+use BlizzardApiService\Context\ApiContext;
 use BlizzardApiService\Settings\ApiUrls;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ServerException;
 
 class Endpoint
@@ -19,10 +18,10 @@ class Endpoint
 
     protected $wholeUrl    = false;
 
-    /** @var BlizzardApiContext */
+    /** @var ApiContext */
     protected $apiContext  = false;
 
-    public function __construct(BlizzardApiContext $blizzardApiContext)
+    public function __construct(ApiContext $blizzardApiContext)
     {
         $this->apiContext = $blizzardApiContext;
     }
@@ -48,15 +47,14 @@ class Endpoint
         }else{
             $splitter = '?';
         }
-        $finalUrl   = $url . $splitter . http_build_query($this->parameters);
-        $client = new Client();
-
+        $finalUrl   = $url . $splitter . urldecode(http_build_query($this->parameters));
+        $this->parameters = [];
         if($this->apiContext->isProfiling()){
             $measureStart = microtime(true);
         }
 
         try {
-            $response = $client->request('GET', $finalUrl);
+            $response = $this->apiContext->sendRequest($finalUrl);
         }catch (ServerException $exception){
             if($counter <= $this->apiContext->getRetryLimit()){
                 sleep($this->apiContext->getRetrySleepTime());

@@ -9,7 +9,7 @@ class Recipe extends Endpoint
     protected $endpointUrl = '/wow/recipe/';
 
     public function get($recipeId){
-        $this->requestUrl .= $recipeId;
+        $this->requestUrl .= $this->endpointUrl . $recipeId;
         return $this->sendRequest();
     }
 }

@@ -9,7 +9,7 @@ class ItemSet extends Endpoint
     protected $endpointUrl = '/wow/item/set/';
 
     public function get($itemSetId){
-        $this->requestUrl .= $itemSetId;
+        $this->requestUrl .= $this->endpointUrl . $itemSetId;
         return $this->sendRequest();
     }
 }

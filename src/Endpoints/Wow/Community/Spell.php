@@ -9,7 +9,7 @@ class Spell extends Endpoint
     protected $endpointUrl = '/wow/spell/';
 
     public function get($spellId){
-        $this->requestUrl .= $spellId;
+        $this->requestUrl .= $this->endpointUrl . $spellId;
         return $this->sendRequest();
     }
 }

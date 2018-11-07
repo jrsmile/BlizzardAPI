@@ -36,4 +36,8 @@ class ApiContext
     {
         throw new ContextException(__FUNCTION__);
     }
+    public function addMeasurement(string $className, float $runTime):void
+    {
+        throw new ContextException(__FUNCTION__);
+    }
 }

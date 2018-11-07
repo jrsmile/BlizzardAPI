@@ -9,7 +9,7 @@ class Quest extends Endpoint
     protected $endpointUrl = '/wow/quest/';
 
     public function get($questId){
-        $this->requestUrl .= $questId;
+        $this->requestUrl .= $this->endpointUrl . $questId;
         return $this->sendRequest();
     }
 }

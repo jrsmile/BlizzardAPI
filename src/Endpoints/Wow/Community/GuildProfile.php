@@ -23,7 +23,7 @@ class GuildProfile extends Endpoint
 
     public function get($realmSlug, $guildName, $fieldInt = self::FIELD_MEMBERS){
         $this->parameters['fields'] = $this->calcFields($fieldInt);
-        $this->requestUrl          .= $realmSlug . '/' . $guildName;
+        $this->requestUrl          .= $this->endpointUrl . $realmSlug . '/' . $guildName;
         return $this->sendRequest();
     }
 
