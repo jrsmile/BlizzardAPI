@@ -2,7 +2,7 @@
 
 namespace BlizzardApiService\Context;
 
-class BlizzardOauthContext
+class BlizzardOauthContext extends ApiContext
 {
     private $clientId     = false;
     private $clientSecret = false;

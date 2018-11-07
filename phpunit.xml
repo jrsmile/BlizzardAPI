@@ -1,0 +1,7 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="wow">
+            <directory>tests/wow</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

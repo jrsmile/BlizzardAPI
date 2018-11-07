@@ -5,7 +5,7 @@ namespace BlizzardApiService\Context;
 use BlizzardApiService\Settings\ApiUrls;
 use GuzzleHttp\Client;
 
-class BlizzardApiContext
+class BlizzardApiContext extends ApiContext
 {
     private $clientId      = false;
     private $clientSecret  = false;
@@ -51,11 +51,11 @@ class BlizzardApiContext
             return;
         }
         $this->getAccessToken();
-
     }
 
 
-    public function getAccessToken(){
+    public function getAccessToken():string
+    {
         if ($this->accessToken !== false && $this->expiresAt > time()) {
             return $this->accessToken;
         }
@@ -86,19 +86,23 @@ class BlizzardApiContext
         return $this->expiresAt;
     }
 
-    public function getRegion(){
+    public function getRegion():string
+    {
         return $this->region;
     }
 
-    public function getLocale(){
+    public function getLocale():string
+    {
         return $this->locale;
     }
 
-    public function getRetryLimit(){
+    public function getRetryLimit():int
+    {
         return $this->retries;
     }
 
-    public function getRetrySleepTime(){
+    public function getRetrySleepTime():int
+    {
         return $this->sleepTime;
     }
 
@@ -118,6 +122,10 @@ class BlizzardApiContext
         $this->profiling = $profiling;
     }
 
+    /**
+     * @param string $className
+     * @param float $runtime
+     */
     public function addMeasurement(string $className, float $runtime): void
     {
         if(!isset($this->profilingData[$className])){
@@ -126,7 +134,11 @@ class BlizzardApiContext
         $this->profilingData[$className][] = $runtime;
     }
 
-    public function getProfilingData(){
+    /**
+     * @return array
+     */
+    public function getProfilingData(): array
+    {
         $result = [];
         foreach ($this->profilingData as $endpoint => $data){
             $result[$endpoint] = [
@@ -137,5 +149,11 @@ class BlizzardApiContext
             ];
         }
         return $result;
+    }
+
+    public function sendRequest($finalUrl):object
+    {
+        $client = new Client();
+        return $client->request('GET', $finalUrl);
     }
 }
