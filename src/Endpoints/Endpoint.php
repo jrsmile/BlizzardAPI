@@ -33,14 +33,12 @@ class Endpoint
      * @throws ApiException
      */
     protected function sendRequest(){
+        $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
+        if($this->requestUrl !== false){
+            $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->requestUrl;
+            $this->requestUrl = false;
+        }
         if( $this->wholeUrl === false) {
-            if($this->requestUrl != false){
-                $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->requestUrl;
-                $this->requestUrl = false;
-            }else{
-                $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
-            }
-        }else{
             $url = $this->wholeUrl;
         }
 
@@ -50,10 +48,9 @@ class Endpoint
         $this->parameters['locale']       = $this->apiContext->getLocale();
         $this->parameters['access_token'] = $this->apiContext->getAccessToken();
 
+        $splitter = '?';
         if(strpos($url, '?') !== false){
             $splitter = '&';
-        }else{
-            $splitter = '?';
         }
 
         $finalUrl         = $url . $splitter . urldecode(http_build_query($this->parameters));

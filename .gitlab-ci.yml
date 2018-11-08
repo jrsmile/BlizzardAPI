@@ -22,7 +22,7 @@ composer:
 phpMess:
   stage: test
   script:
-    - php vendor/bin/phpmd src/ text cleancode,controversial,codesize,design,naming,unusedcode
+    - php vendor/bin/phpmd src/ text cleancode,controversial,codesize,design,naming
   allow_failure: true
 
 phpUnit:
