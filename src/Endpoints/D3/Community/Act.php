@@ -9,7 +9,7 @@ class Act extends Endpoint
     protected $endpointUrl = '/d3/data/act/';
 
     public function get($actId){
-        $this->endpointUrl .= $actId;
+        $this->requestUrl .= $actId;
         return $this->sendRequest();
     }
 }

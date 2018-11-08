@@ -9,7 +9,7 @@ class HeroFollowerItems extends Endpoint
     protected $endpointUrl = '/d3/profile/';
 
     public function get($battleTag, $heroId){
-        $this->endpointUrl .= urlencode($battleTag) . "/hero/$heroId/follower-items";
+        $this->requestUrl .= urlencode($battleTag) . "/hero/$heroId/follower-items";
         return $this->sendRequest();
     }
 }

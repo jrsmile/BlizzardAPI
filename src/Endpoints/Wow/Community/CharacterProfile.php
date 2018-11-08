@@ -51,9 +51,12 @@ class CharacterProfile extends Endpoint
 
     protected $endpointUrl = '/wow/character/';
 
-    public function get($realmSlug, $characterName, $fieldInt){
-        $this->parameters['fields'] = $this->calcFields($fieldInt);
-        $this->endpointUrl         .= $realmSlug . '/' . $characterName;
+    public function get($realmSlug, $characterName, $fieldInt = 0){
+        if($fieldInt !== 0) {
+            $this->parameters['fields'] = $this->calcFields($fieldInt);
+        }
+        $this->requestUrl = $this->endpointUrl . $realmSlug . '/' . $characterName;
+
         return $this->sendRequest();
     }
 

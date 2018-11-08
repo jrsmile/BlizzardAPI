@@ -8,8 +8,7 @@ class RealmStatus extends Endpoint
 {
     protected $endpointUrl = '/wow/realm/status';
 
-    public function get($realmSlug){
-        $this->endpointUrl .= $realmSlug;
+    public function get(){
         return $this->sendRequest();
     }
 }

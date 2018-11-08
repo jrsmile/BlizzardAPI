@@ -9,7 +9,7 @@ class Item extends Endpoint
     protected $endpointUrl = '/d3/data/item/';
 
     public function get($itemSlugAndId){
-        $this->endpointUrl .= urlencode($itemSlugAndId);
+        $this->requestUrl .= urlencode($itemSlugAndId);
         return $this->sendRequest();
     }
 }
