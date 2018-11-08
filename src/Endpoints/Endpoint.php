@@ -33,12 +33,13 @@ class Endpoint
      * @throws ApiException
      */
     protected function sendRequest(){
-        $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->endpointUrl;
+        $baseUrl = ApiUrls::getBaseUrl($this->apiContext->getRegion());
+        $url     = $baseUrl . $this->endpointUrl;
         if($this->requestUrl !== false){
-            $url = ApiUrls::getBaseUrl($this->apiContext->getRegion()) . $this->requestUrl;
+            $url = $baseUrl . $this->requestUrl;
             $this->requestUrl = false;
         }
-        if( $this->wholeUrl === false) {
+        if( $this->wholeUrl !== false) {
             $url = $this->wholeUrl;
         }
 
