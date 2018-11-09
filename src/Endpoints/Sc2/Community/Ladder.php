@@ -9,7 +9,7 @@ class Ladder extends Endpoint
     protected $endpointUrl = '/sc2/ladder/';
 
     public function get($ladderId){
-        $this->requestUrl .= $ladderId;
+        $this->requestUrl = $this->endpointUrl . $ladderId;
         return $this->sendRequest();
     }
 }
