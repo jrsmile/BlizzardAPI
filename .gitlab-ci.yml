@@ -42,4 +42,5 @@ phpUnitReal:
     - export BLIZZARD_CLIENT_SECRET=$BLIZZARD_CLIENT_SECRET
     - php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
   only:
+    - next
     - master
