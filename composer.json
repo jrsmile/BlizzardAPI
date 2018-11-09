@@ -1,7 +1,7 @@
 {
-  "name": "jfalkenhagen/blizzard-api-service",
+  "name": "jared87/blizzard-api-service",
   "description": "Access wrapper for the Blizzard BattleNet API",
-  "url": "https://gitlab.jfdnk.de/open-source/blizzard-api-service/",
+  "url": "https://github.com/Jared87/BlizzardAPI",
   "keywords": ["api","blizzard", "world of warcraft", "diablo3", "starcraft2"],
   "type": "library",
   "license": "MIT",
