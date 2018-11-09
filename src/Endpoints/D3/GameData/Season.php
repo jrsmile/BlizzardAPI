@@ -9,7 +9,7 @@ class Season extends Endpoint
     protected $endpointUrl = '/data/d3/season/';
 
     public function get($seasonId){
-        $this->requestUrl .= $seasonId;
+        $this->requestUrl .= $this->endpointUrl . $seasonId;
         return $this->sendRequest();
     }
 }

@@ -11,7 +11,7 @@ namespace BlizzardApiService\Settings;
 
 use BlizzardApiService\Exceptions\RegionException;
 
-class ApiUrls
+final class ApiUrls
 {
 
     private static $baseUrls = [
@@ -23,11 +23,11 @@ class ApiUrls
     ];
 
     private static $oldBaseUrls = [
-        'US'  => 'https://us.api.battle.net',
-        'EU'  => 'https://eu.api.battle.net',
-        'KR'  => 'https://kr.api.battle.net',
-        'TW'  => 'https://tw.api.battle.net',
-        'SEA' => 'https://sea.api.battle.net',
+        'US'  => 'https://us.battle.net',
+        'EU'  => 'https://eu.battle.net',
+        'KR'  => 'https://kr.battle.net',
+        'TW'  => 'https://tw.battle.net',
+        'SEA' => 'https://sea.battle.net',
     ];
 
     private static $authUrls = [

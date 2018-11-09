@@ -9,7 +9,7 @@ class Era extends Endpoint
     protected $endpointUrl = '/data/d3/era/';
 
     public function get($eraId){
-        $this->requestUrl .= $eraId;
+        $this->requestUrl .= $this->endpointUrl . $eraId;
         return $this->sendRequest();
     }
 }

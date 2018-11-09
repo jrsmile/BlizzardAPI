@@ -1,6 +1,7 @@
 <phpunit>
     <testsuites>
         <testsuite name="wow">
+            <directory>tests/d3</directory>
             <directory>tests/wow</directory>
         </testsuite>
     </testsuites>

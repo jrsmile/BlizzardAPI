@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'TestContext.php';
 
 
-final class urlGeneratorCommunityTest extends TestCase
+final class urlGeneratorWoWCommunityTest extends TestCase
 {
     public $apiContext = null;
     public $apiKey     = null;
