@@ -6,36 +6,34 @@ php:
   - 7.1
   - 7.2
 
+stages:
+  - build
+  - test
+  - name: testremote
+    if: branch = master
+
 cache:
   directories:
     - vendor
     - $COMPOSER_CACHE_DIR
 
-install:
-  # Install coveralls.phar
-  - wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar -O coveralls.phar
-  - chmod +x coveralls.phar
-  - php coveralls.phar --version
+jobs:
+  include:
+    install:
+      - stage: build
+        script: composer self-update || true
+        script: composer install
+        script: mkdir -p build/logs
+        script: wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar -O coveralls.phar
+        script: chmod +x coveralls.phar
+      - stage: test
+        script: php coveralls.phar --version
+        after_success:
+         - travis_retry php coveralls.phar -v
+        script: ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+        script:  php vendor/bin/phpunit --colors
+      - stage: phpLint
+        script: find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
+      - stage: testremote
+        script: php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
 
-before_script:
-  - composer self-update || true
-  - composer install
-  - mkdir -p build/logs
-
-coverage:
-  - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-
-phpUnit:
-  - php vendor/bin/phpunit --colors
-
-
-phpLint:
-  - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
-
-phpUnitReal:
-  if: type = pull_request
-  - php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
-
-after_success:
-# Submit coverage report to Coveralls servers, see .coveralls.yml
- - travis_retry php coveralls.phar -v
