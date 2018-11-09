@@ -89,4 +89,21 @@ abstract class ApiContext
         $client = new Client();
         return $client->request('GET', $finalUrl);
     }
+
+
+    /**
+     * @param int $retries
+     */
+    public function setRetries(int $retries)
+    {
+        $this->retries = $retries;
+    }
+
+    /**
+     * @param int $sleepTime
+     */
+    public function setSleepTime(int $sleepTime)
+    {
+        $this->sleepTime = $sleepTime;
+    }
 }
