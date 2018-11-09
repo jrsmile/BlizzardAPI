@@ -20,8 +20,7 @@ before_script:
 script:
   - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
   - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
-  - echo $TRAVIS_PULL_REQUEST
-  - if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then ./vendor/bin/phpunit --colors --configuration=phpunit-merge.xml; fi
+  - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ./vendor/bin/phpunit --colors --configuration=phpunit-merge.xml; fi
 
 after_success:
  - php vendor/bin/coveralls -v
