@@ -84,7 +84,7 @@ abstract class ApiContext
 
     abstract public function getAccessToken();
 
-    public function sendRequest($finalUrl):object
+    public function sendRequest($finalUrl)
     {
         $client = new Client();
         return $client->request('GET', $finalUrl);
