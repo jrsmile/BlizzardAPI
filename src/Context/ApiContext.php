@@ -3,41 +3,90 @@
 
 namespace BlizzardApiService\Context;
 
+use GuzzleHttp\Client;
 
-use BlizzardApiService\Exceptions\ContextException;
-
-class ApiContext
+abstract class ApiContext
 {
-    public function getRegion():string
+    protected $clientId      = false;
+    protected $clientSecret  = false;
+    protected $profiling     = false;
+    protected $profilingData = [];
+    protected $retries       = 3;
+    protected $sleepTime     = 2;
+    protected $region        = false;
+    protected $locale        = false;
+    protected $baseUrl       = false;
+
+    /**
+     * @return bool
+     */
+    public function isProfiling(): bool
     {
-        throw new ContextException(__FUNCTION__);
+        return $this->profiling;
     }
+
+    /**
+     * @param bool $profiling
+     */
+    public function setProfiling(bool $profiling): void
+    {
+        $this->profiling = $profiling;
+    }
+
+    /**
+     * @param string $className
+     * @param float $runtime
+     */
+    public function addMeasurement(string $className, float $runtime): void
+    {
+        if(!isset($this->profilingData[$className])){
+            $this->profilingData[$className] = [];
+        }
+        $this->profilingData[$className][] = $runtime;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProfilingData(): array
+    {
+        $result = [];
+        foreach ($this->profilingData as $endpoint => $data){
+            $result[$endpoint] = [
+                'min'   => min($data),
+                'max'   => max($data),
+                'avg'   => array_sum($data) / count($data),
+                'count' => count($data),
+            ];
+        }
+        return $result;
+    }
+
     public function getLocale():string
     {
-        throw new ContextException(__FUNCTION__);
+        return $this->locale;
     }
-    public function getAccessToken():string
-    {
-        throw new ContextException(__FUNCTION__);
-    }
-    public function isProfiling():bool
-    {
-        throw new ContextException(__FUNCTION__);
-    }
-    public function sendRequest($finalUrl):object
-    {
-        throw new ContextException(__FUNCTION__);
-    }
+
     public function getRetryLimit():int
     {
-        throw new ContextException(__FUNCTION__);
+        return $this->retries;
     }
+
     public function getRetrySleepTime():int
     {
-        throw new ContextException(__FUNCTION__);
+        return $this->sleepTime;
     }
-    public function addMeasurement(string $className, float $runTime):void
+
+    public function getRegion():string
     {
-        throw new ContextException(__FUNCTION__);
+        return $this->region;
+    }
+
+    abstract public function getAccessToken();
+
+    public function sendRequest($finalUrl):object
+    {
+        $client = new Client();
+        return $client->request('GET', $finalUrl);
     }
 }

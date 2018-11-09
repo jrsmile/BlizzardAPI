@@ -2,11 +2,11 @@
 
 namespace BlizzardApiService\Endpoints;
 
-
 use BlizzardApiService\Context\ApiContext;
 use BlizzardApiService\Exceptions\ApiException;
 use BlizzardApiService\Settings\ApiUrls;
 use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Psr7\Response;
 
 class Endpoint
 {
@@ -16,6 +16,7 @@ class Endpoint
     protected $namespace     = false;
     protected $parameters    = [];
     protected $retryCounter  = 0;
+    protected $oldApi        = false;
 
 
     protected $wholeUrl    = false;
@@ -33,7 +34,7 @@ class Endpoint
      * @throws ApiException
      */
     protected function sendRequest(){
-        $baseUrl = ApiUrls::getBaseUrl($this->apiContext->getRegion());
+        $baseUrl = ApiUrls::getBaseUrl($this->apiContext->getRegion(), $this->oldApi);
         $url     = $baseUrl . $this->endpointUrl;
         if($this->requestUrl !== false){
             $url = $baseUrl . $this->requestUrl;
@@ -63,6 +64,7 @@ class Endpoint
         }
 
         try {
+            /** @var Response $response */
             $response = $this->apiContext->sendRequest($finalUrl);
         }catch (ServerException $exception){
             if($this->retryCounter <= $this->apiContext->getRetryLimit()){
@@ -86,9 +88,11 @@ class Endpoint
             if(json_last_error() == JSON_ERROR_NONE){
                 $responseBody = false;
             }
-            throw (new ApiException(
-                'Error connecting to API: [' . $response->getStatusCode() . '] ' . $response->getReasonPhrase()
-            ))->setApiResponse($responseBody);
+            $exception = new ApiException(
+                'Error connecting to API: ' . $response->getReasonPhrase(), $response->getStatusCode()
+            );
+            $exception->setApiResponse($responseBody);
+            throw $exception;
         }
         return json_decode((string) $response->getBody());
     }

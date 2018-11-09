@@ -1,7 +1,9 @@
 <phpunit>
     <testsuites>
-        <testsuite name="wow">
-            <directory>tests/wow</directory>
+        <testsuite name="endpoints">
+            <directory>tests/endpoint/d3</directory>
+            <directory>tests/endpoint/sc2</directory>
+            <directory>tests/endpoint/wow</directory>
         </testsuite>
     </testsuites>
 </phpunit>

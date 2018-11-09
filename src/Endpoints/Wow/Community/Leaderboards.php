@@ -6,7 +6,7 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Leaderboards extends Endpoint
 {
-    protected $possibleBrackets = ['2vs2', '3vs3', '5vs5', 'rbg'];
+    protected $possibleBrackets = ['2v2', '3v3', '5v5', 'rbg'];
     protected $endpointUrl      = '/wow/leaderboard/';
 
     public function get($bracket){

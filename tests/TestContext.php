@@ -1,15 +1,12 @@
 <?php
-use BlizzardApiService\Context\ApiContext;
+use BlizzardApiService\Context\BlizzardApiContext;
+
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestResponse.php';
 
-class TestContext extends ApiContext
+class TestContext extends BlizzardApiContext
 {
-    private $key = null;
-    private $profilingData = [];
-    public function __construct($apiKey)
-    {
-        $this->key = $apiKey;
-    }
+    protected $accessToken = null;
+    protected $profilingData = [];
 
     public function getRegion(): string
     {
@@ -23,7 +20,7 @@ class TestContext extends ApiContext
 
     public function getAccessToken(): string
     {
-        return $this->key;
+        return $this->accessToken;
     }
 
     public function isProfiling(): bool

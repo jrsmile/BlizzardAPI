@@ -1,0 +1,8 @@
+<phpunit bootstrap="tests/bootstrapExternalAPI.php">
+    <testsuites>
+        <testsuite name="withapi">
+            <directory>tests/publicapi/d3</directory>
+            <directory>tests/publicapi/wow</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

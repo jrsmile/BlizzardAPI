@@ -9,7 +9,7 @@ class Recipe extends Endpoint
     protected $endpointUrl = '/d3/data/artisan/';
 
     public function get($artisanSlug, $recipeSlug){
-        $this->requestUrl .= "$artisanSlug/recipe/$recipeSlug";
+        $this->requestUrl .= $this->endpointUrl . "$artisanSlug/recipe/$recipeSlug";
         return $this->sendRequest();
     }
 }

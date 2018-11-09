@@ -9,7 +9,7 @@ class EraLeaderboard extends Endpoint
     protected $endpointUrl = '/data/d3/era/';
 
     public function get($eraId, $leaderboard){
-        $this->requestUrl .= "$eraId/leaderboard/$leaderboard";
+        $this->requestUrl .= $this->endpointUrl . "$eraId/leaderboard/$leaderboard";
         return $this->sendRequest();
     }
 }

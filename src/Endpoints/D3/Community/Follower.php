@@ -9,7 +9,7 @@ class Follower extends Endpoint
     protected $endpointUrl = '/d3/data/follower/';
 
     public function get($followerSlug){
-        $this->requestUrl .= $followerSlug;
+        $this->requestUrl .= $this->endpointUrl . $followerSlug;
         return $this->sendRequest();
     }
 }
