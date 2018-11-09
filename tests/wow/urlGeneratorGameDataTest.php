@@ -11,7 +11,7 @@ class urlGeneratorGameDataTest extends TestCase
     public $apiKey     = null;
     public function setUp(){
         $this->apiKey = md5((string)rand(0, 100));
-        $this->apiContext = new TestContext($this->apiKey);
+        $this->apiContext = new TestContext('foo', 'bar', 'EU', 'de_DE', $this->apiKey);
     }
 
 

@@ -3,7 +3,7 @@
 namespace BlizzardApiService\Endpoints\Wow\GameData;
 
 
-use BlizzardApiService\Context\ApiContext;
+use BlizzardApiService\Context\BlizzardApiContext;
 use BlizzardApiService\Endpoints\Endpoint;
 
 class TokenPrice extends Endpoint
@@ -12,7 +12,7 @@ class TokenPrice extends Endpoint
     protected $endpointUrl = '/data/wow/token/';
     protected $namespace   = true;
 
-    public function __construct(ApiContext $blizzardApiContext)
+    public function __construct(BlizzardApiContext $blizzardApiContext)
     {
         parent::__construct($blizzardApiContext);
         $this->namespace  = 'dynamic-' . strtolower($this->apiContext->getRegion());

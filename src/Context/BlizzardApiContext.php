@@ -7,18 +7,9 @@ use GuzzleHttp\Client;
 
 class BlizzardApiContext extends ApiContext
 {
-    private $clientId      = false;
-    private $clientSecret  = false;
-    private $region        = false;
-    private $baseUrl       = false;
-    private $locale        = false;
-    private $accessToken   = false;
-    private $expiresAt     = false;
-    private $tokenType     = false;
-    private $retries       = 3;
-    private $sleepTime     = 2;
-    private $profiling     = false;
-    private $profilingData = [];
+    protected $accessToken   = false;
+    protected $expiresAt     = false;
+    protected $tokenType     = false;
 
 
     /**
@@ -84,76 +75,5 @@ class BlizzardApiContext extends ApiContext
 
     public function getExpiresAt(){
         return $this->expiresAt;
-    }
-
-    public function getRegion():string
-    {
-        return $this->region;
-    }
-
-    public function getLocale():string
-    {
-        return $this->locale;
-    }
-
-    public function getRetryLimit():int
-    {
-        return $this->retries;
-    }
-
-    public function getRetrySleepTime():int
-    {
-        return $this->sleepTime;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isProfiling(): bool
-    {
-        return $this->profiling;
-    }
-
-    /**
-     * @param bool $profiling
-     */
-    public function setProfiling(bool $profiling): void
-    {
-        $this->profiling = $profiling;
-    }
-
-    /**
-     * @param string $className
-     * @param float $runtime
-     */
-    public function addMeasurement(string $className, float $runtime): void
-    {
-        if(!isset($this->profilingData[$className])){
-            $this->profilingData[$className] = [];
-        }
-        $this->profilingData[$className][] = $runtime;
-    }
-
-    /**
-     * @return array
-     */
-    public function getProfilingData(): array
-    {
-        $result = [];
-        foreach ($this->profilingData as $endpoint => $data){
-            $result[$endpoint] = [
-                'min'   => min($data),
-                'max'   => max($data),
-                'avg'   => array_sum($data) / count($data),
-                'count' => count($data),
-            ];
-        }
-        return $result;
-    }
-
-    public function sendRequest($finalUrl):object
-    {
-        $client = new Client();
-        return $client->request('GET', $finalUrl);
     }
 }
