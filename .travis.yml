@@ -24,7 +24,8 @@ script:
   - if [ "$TRAVIS_PULL_REQUEST" = "true" ]; then php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml; fi
 
 after_success:
- - travis_retry php coveralls.phar -v
+ - php vendor/bin/coveralls -v
+
 
 
 
