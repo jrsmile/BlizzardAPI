@@ -10,31 +10,32 @@ stages:
   - build
   - test
   - name: testremote
-    if: branch = master
+    if:
 
 cache:
   directories:
     - vendor
     - $COMPOSER_CACHE_DIR
 
-jobs:
-  include:
-    install:
-      - stage: build
-        script:
-          - composer self-update || true
-          - composer install
-          - mkdir -p build/logs
-          - wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar -O coveralls.phar
-          - chmod +x coveralls.phar
-      - stage: test
-        script:
-          - php coveralls.phar --version
-          - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-          - php vendor/bin/phpunit --colors
-          - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
-        after_success:
-         - travis_retry php coveralls.phar -v
-      - stage: testremote
-        script: php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
+install:
+  - wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar -O coveralls.phar
+  - chmod +x coveralls.phar
+  - php coveralls.phar --version
+
+before_script:
+  - composer self-update || true
+  - composer install
+  - mkdir -p build/logs
+
+script:
+  - php coveralls.phar --version
+  - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - php vendor/bin/phpunit --colors
+  - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
+  - if [ "${TRAVIS_PULL_REQUEST}" = "true" ]; then php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml; fi
+
+after_success:
+ - travis_retry php coveralls.phar -v
+
+
 
