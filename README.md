@@ -1,5 +1,6 @@
 [![Latest Version](https://img.shields.io/packagist/v/jared87/blizzard-api-service.svg)](https://packagist.org/packages/jared87/blizzard-api-service)
-[![Maintainability](https://api.codeclimate.com/v1/badges/62787c08881c0ef651c1/maintainability)](https://codeclimate.com/github/Jared87/BlizzardAPI/maintainability)[![Build Status](https://travis-ci.org/wol-soft/php-micro-template.svg?branch=master)](https://travis-ci.org/wol-soft/php-micro-template)
+[![Maintainability](https://api.codeclimate.com/v1/badges/62787c08881c0ef651c1/maintainability)](https://codeclimate.com/github/Jared87/BlizzardAPI/maintainability)
+[![Build Status](https://travis-ci.com/Jared87/BlizzardAPI.svg?branch=master)](https://travis-ci.com/Jared87/BlizzardAPI/)
 [![MIT License](https://img.shields.io/packagist/l/jared87/blizzard-api-service.svg)](https://github.com/Jared87/BlizzardAPI/blob/master/LICENSE.md)
 # Blizzard API Access
 
