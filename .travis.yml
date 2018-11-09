@@ -21,19 +21,20 @@ jobs:
   include:
     install:
       - stage: build
-        script: composer self-update || true
-        script: composer install
-        script: mkdir -p build/logs
-        script: wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar -O coveralls.phar
-        script: chmod +x coveralls.phar
+        script:
+          - composer self-update || true
+          - composer install
+          - mkdir -p build/logs
+          - wget -c -nc --retry-connrefused --tries=0 https://github.com/php-coveralls/php-coveralls/releases/download/v2.0.0/php-coveralls.phar -O coveralls.phar
+          - chmod +x coveralls.phar
       - stage: test
-        script: php coveralls.phar --version
+        script:
+          - php coveralls.phar --version
+          - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+          - php vendor/bin/phpunit --colors
+          - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
         after_success:
          - travis_retry php coveralls.phar -v
-        script: ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-        script:  php vendor/bin/phpunit --colors
-      - stage: phpLint
-        script: find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
       - stage: testremote
         script: php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
 
