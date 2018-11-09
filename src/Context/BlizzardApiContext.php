@@ -28,7 +28,7 @@ class BlizzardApiContext extends ApiContext
         $clientSecret,
         $region,
         $locale,
-        $accessToken = false
+        $accessToken = null
     )
     {
         $this->clientId     = $clientId;
@@ -37,7 +37,7 @@ class BlizzardApiContext extends ApiContext
         $this->locale       = $locale;
         $this->baseUrl      = ApiUrls::getBaseUrl($this->region);
 
-        if ($accessToken !== false) {
+        if ($accessToken !== null) {
             $this->accessToken = $accessToken;
             return;
         }

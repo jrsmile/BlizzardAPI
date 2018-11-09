@@ -3,7 +3,7 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'TestOauthContext.php';
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'TestContext.php';
 
 class urlGeneratorD3GameDataTest extends TestCase
 {

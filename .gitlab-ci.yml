@@ -34,3 +34,12 @@ phpLint:
   stage: test
   script:
     - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
+
+phpUnitReal:
+  stage: test
+  script:
+    - export BLIZZARD_CLIENT_ID=$BLIZZARD_CLIENT_ID
+    - export BLIZZARD_CLIENT_SECRET=$BLIZZARD_CLIENT_SECRET
+    - php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
+  only:
+    - merge-requests

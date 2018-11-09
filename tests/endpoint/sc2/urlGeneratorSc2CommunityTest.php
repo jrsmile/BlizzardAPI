@@ -2,7 +2,7 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'TestOauthContext.php';
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'TestContext.php';
 
 
 final class urlGeneratorSc2CommunityTest extends TestCase
@@ -18,7 +18,7 @@ final class urlGeneratorSc2CommunityTest extends TestCase
     public function testAchievements(){
         $api      = new \BlizzardApiService\Endpoints\Sc2\Community\Achievements($this->apiContext);
         $response = $api->get();
-        $assertedUrl = "https://eu.api.blizzard.com/sc2/data/achievements?locale=de_DE&access_token={$this->apiKey}";
+        $assertedUrl = "https://eu.api.blizzard.com/data/sc2/achievements?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
     }
 

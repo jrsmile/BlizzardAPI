@@ -2,7 +2,7 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'TestContext.php';
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'TestContext.php';
 
 
 final class urlGeneratorWoWCommunityTest extends TestCase
@@ -202,7 +202,7 @@ final class urlGeneratorWoWCommunityTest extends TestCase
     }
 
     public function testLeaderboards(){
-        $requestedId = '2vs2';
+        $requestedId = '2v2';
         $api      = new \BlizzardApiService\Endpoints\Wow\Community\Leaderboards($this->apiContext);
         $response = $api->get($requestedId);
         $assertedUrl = "https://eu.api.blizzard.com/wow/leaderboard/$requestedId?locale=de_DE&access_token={$this->apiKey}";

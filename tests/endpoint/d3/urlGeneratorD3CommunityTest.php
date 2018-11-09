@@ -2,7 +2,7 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'TestOauthContext.php';
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'TestOauthContext.php';
 
 
 final class urlGeneratorD3CommunityTest extends TestCase
@@ -19,7 +19,7 @@ final class urlGeneratorD3CommunityTest extends TestCase
         $requestedId = 'Battetag#1234';
         $api      = new \BlizzardApiService\Endpoints\D3\Community\Account($this->apiContext);
         $response = $api->get($requestedId);
-        $assertedUrl = "https://eu.api.blizzard.com/d3/profile/".urlencode($requestedId)."?locale=de_DE&access_token={$this->apiKey}";
+        $assertedUrl = "https://eu.api.blizzard.com/d3/profile/".urlencode($requestedId)."/?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
     }
 
