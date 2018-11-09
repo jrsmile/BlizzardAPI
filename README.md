@@ -1,3 +1,7 @@
+[![Latest Version](https://img.shields.io/packagist/v/jared87/blizzard-api-service.svg)](https://packagist.org/packages/jared87/blizzard-api-service)
+[![Maintainability](https://api.codeclimate.com/v1/badges/62787c08881c0ef651c1/maintainability)](https://codeclimate.com/github/Jared87/BlizzardAPI/maintainability)[![Build Status](https://travis-ci.org/wol-soft/php-micro-template.svg?branch=master)](https://travis-ci.org/wol-soft/php-micro-template)
+[![Coverage Status](https://coveralls.io/repos/github/wol-soft/php-micro-template/badge.svg?branch=master)](https://coveralls.io/github/wol-soft/php-micro-template?branch=master)
+[![MIT License](https://img.shields.io/packagist/l/jared87/blizzard-api-service.svg)](https://github.com/Jared87/BlizzardAPI/blob/master/LICENSE.md)
 # Blizzard API Access
 
 This package can manage your API requests for the Blizzard Battle.NET API Endpoints.

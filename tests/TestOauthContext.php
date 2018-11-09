@@ -31,7 +31,7 @@ class TestOauthContext extends BlizzardOauthContext
         return true;
     }
 
-    public function sendRequest($finalUrl):object
+    public function sendRequest($finalUrl)
     {
         $response = new TestResponse();
         $response->url = $finalUrl;

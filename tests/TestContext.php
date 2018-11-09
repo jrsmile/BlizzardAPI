@@ -28,7 +28,7 @@ class TestContext extends BlizzardApiContext
         return true;
     }
 
-    public function sendRequest($finalUrl):object
+    public function sendRequest($finalUrl)
     {
         $response = new TestResponse();
         $response->url = $finalUrl;
