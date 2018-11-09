@@ -12,6 +12,8 @@ final class accessD3CommunityTest extends TestCase
     public function setUp(){
         global $clientId, $clientSecret;
         $this->apiContext = new BlizzardApiContext($clientId, $clientSecret, 'EU', 'de_DE');
+        $this->apiContext->setRetries(10);
+        $this->apiContext->setSleepTime(5);
     }
 
 
