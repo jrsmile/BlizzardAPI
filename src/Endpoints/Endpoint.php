@@ -87,7 +87,7 @@ class Endpoint
                 $responseBody = false;
             }
             throw (new ApiException(
-                'Error connecting to API: [' . $response->getStatusCode() . '] ' . $response->getReasonPhrase()
+                'Error connecting to API: ' . $response->getReasonPhrase(), $response->getStatusCode()
             ))->setApiResponse($responseBody);
         }
         return json_decode((string) $response->getBody());
