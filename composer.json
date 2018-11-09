@@ -2,13 +2,16 @@
   "name": "jfalkenhagen/blizzard-api-service",
   "description": "Access wrapper for the Blizzard BattleNet API",
   "url": "https://gitlab.jfdnk.de/open-source/blizzard-api-service/",
+  "keywords": ["api","blizzard", "world of warcraft", "diablo3", "starcraft2"],
   "type": "library",
   "license": "MIT",
   "version": "1.0.0",
   "authors": [
     {
       "name": "Jared Falkenhagen",
-      "email": "jared@falkenhagen.de"
+      "email": "jared@falkenhagen.de",
+      "homepage": "https://jar3d.de",
+      "role": "Developer"
     }
   ],
   "autoload": {
