@@ -23,5 +23,4 @@ class ApiException extends \Exception
     {
         $this->apiResponse = $apiResponse;
     }
-
 }
