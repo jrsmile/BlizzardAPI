@@ -21,6 +21,7 @@ before_script:
   - composer self-update || true
   - composer install
   - mkdir -p build/logs
+
 coverage:
   script:
     - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
@@ -39,8 +40,7 @@ phpLint:
     - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
 
 phpUnitReal:
+  if: type = pull_request
   stage: test
   script:
     - php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
-  only:
-    - if: type = pull_request
