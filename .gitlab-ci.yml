@@ -30,7 +30,7 @@ phpUnit:
   script:
     - php vendor/bin/phpunit --colors
 
-phplint:
+phpLint:
   stage: test
   script:
     - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
