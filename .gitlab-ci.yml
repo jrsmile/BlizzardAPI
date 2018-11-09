@@ -29,3 +29,8 @@ phpUnit:
   stage: test
   script:
     - php vendor/bin/phpunit --colors
+
+phplint:
+  stage: test
+  script:
+    - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
