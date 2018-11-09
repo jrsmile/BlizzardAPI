@@ -16,24 +16,11 @@ For this project you need PHP and Composer for installing itself and its depende
 
 A step by step series of examples that tell you how to get a development env running
 
-As we are not in packagist right now, you need to add our repository to the composer.json
 
 ```
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://gitlab.jfdnk.de/open-source/blizzard-api-service"
-        }
-    ]
+composer require jared87/blizzard-api-service
 ```
 
-with this repository added you can require the package with
-
-```
-composer require jfalkenhagen/blizzard-api-service
-```
-
-This will change if we decide to put our project into packagist.
 ## Using the Package
 
 To use this package you mainly have to create an API context, which provides the authentication with the Blizzard APIs
@@ -93,13 +80,13 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://gitlab.jfdnk.de/open-source/blizzard-api-service/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/Jared87/BlizzardAPI/tags). 
 
 ## Authors
 
 * **Jared Falkenhagen** - *Initial work* - [Jared87](https://github.com/Jared87)
 
-See also the list of [contributors](https://gitlab.jfdnk.de/open-source/blizzard-api-service/graphs/master) who participated in this project.
+See also the list of [contributors](https://github.com/Jared87/BlizzardAPI/graphs/contributors) who participated in this project.
 
 ## License
 
