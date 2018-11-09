@@ -23,24 +23,19 @@ before_script:
   - mkdir -p build/logs
 
 coverage:
-  script:
-    - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
-  after_success:
-  # Submit coverage report to Coveralls servers, see .coveralls.yml
-   - travis_retry php coveralls.phar -v
+  - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 
 phpUnit:
-  script:
-    - php vendor/bin/phpunit --colors
+  - php vendor/bin/phpunit --colors
 
 
 phpLint:
-  stage: test
-  script:
-    - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
+  - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
 
 phpUnitReal:
   if: type = pull_request
-  stage: test
-  script:
-    - php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
+  - php vendor/bin/phpunit --colors --configuration=phpunit-merge.xml
+
+after_success:
+# Submit coverage report to Coveralls servers, see .coveralls.yml
+ - travis_retry php coveralls.phar -v
