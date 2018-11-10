@@ -8,9 +8,11 @@ class generalTest extends TestCase
     /** @var \BlizzardApiService\Context\ApiContext */
     public $apiContext = null;
     public $apiKey     = null;
+    public $region     = 'EU';
+    public $locale     = 'de_DE';
     public function setUp(){
         $this->apiKey = md5((string)rand(0, 100));
-        $this->apiContext = new TestContext('EU', 'de_DE');
+        $this->apiContext = new TestContext($this->region, $this->locale);
         $this->apiContext->setAccessToken($this->apiKey);
         $this->apiContext->setProfiling(true);
     }
@@ -42,6 +44,12 @@ class generalTest extends TestCase
         $this->assertNotEmpty($url);
         $url = \BlizzardApiService\Settings\ApiUrls::getAuthUrl('EU');
         $this->assertNotEmpty($url);
+    }
 
+    public function testContext(){
+        $region = $this->apiContext->getRegion();
+        $this->assertEquals($this->region, $region);
+        $locale = $this->apiContext->getLocale();
+        $this->assertEquals($this->locale, $locale);
     }
 }
