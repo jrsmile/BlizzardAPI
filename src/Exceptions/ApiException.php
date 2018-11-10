@@ -11,7 +11,7 @@ class ApiException extends \Exception
     /**
      * @return object
      */
-    public function getApiResponse(): object
+    public function getApiResponse()
     {
         return $this->apiResponse;
     }

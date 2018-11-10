@@ -35,6 +35,15 @@ class generalTest extends TestCase
         $apiContext->getAccessToken();
     }
 
+    public function testApiException2(){
+        $exception = new \BlizzardApiService\Exceptions\ApiException();
+        $responseAsserted = new stdClass();
+        $responseAsserted->foo = 'bar';
+        $exception->setApiResponse($responseAsserted);
+        $response = $exception->getApiResponse();
+        $this->assertEquals($response, $responseAsserted);
+    }
+
     public function testApiUrls(){
         $url = \BlizzardApiService\Settings\ApiUrls::getBaseUrl('EU');
         $this->assertNotEmpty($url);
