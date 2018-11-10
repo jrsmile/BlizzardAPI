@@ -34,10 +34,14 @@ class generalTest extends TestCase
     }
 
     public function testApiUrls(){
-        \BlizzardApiService\Settings\ApiUrls::getBaseUrl('EU');
-        \BlizzardApiService\Settings\ApiUrls::getBaseUrl('EU', true);
-        \BlizzardApiService\Settings\ApiUrls::getTokenUrl('EU');
-        \BlizzardApiService\Settings\ApiUrls::getAuthUrl('EU');
+        $url = \BlizzardApiService\Settings\ApiUrls::getBaseUrl('EU');
+        $this->assertNotEmpty($url);
+        $url = \BlizzardApiService\Settings\ApiUrls::getBaseUrl('EU', true);
+        $this->assertNotEmpty($url);
+        $url = \BlizzardApiService\Settings\ApiUrls::getTokenUrl('EU');
+        $this->assertNotEmpty($url);
+        $url = \BlizzardApiService\Settings\ApiUrls::getAuthUrl('EU');
+        $this->assertNotEmpty($url);
 
     }
 }
