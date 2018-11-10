@@ -28,8 +28,6 @@ class Endpoint
     public function __construct(ApiContext $blizzardApiContext)
     {
         $this->apiContext = $blizzardApiContext;
-        $this->parameters['locale']       = $this->apiContext->getLocale();
-        $this->parameters['access_token'] = $this->apiContext->getAccessToken();
     }
 
     /**
@@ -41,6 +39,8 @@ class Endpoint
         if($this->namespace !== false){
             $this->parameters['namespace'] = $this->namespace;
         }
+        $this->parameters['locale']       = $this->apiContext->getLocale();
+        $this->parameters['access_token'] = $this->apiContext->getAccessToken();
 
         $url = $this->buildUrl();
 
@@ -75,9 +75,9 @@ class Endpoint
         if(strpos($url, '?') !== false){
             $splitter = '&';
         }
-
+        $finalUrl = $url . $splitter . urldecode(http_build_query($this->parameters));
         $this->parameters = [];
-        return $url . $splitter . urldecode(http_build_query($this->parameters));
+        return $finalUrl;
     }
 
     private function handleResponse(Response $response)
