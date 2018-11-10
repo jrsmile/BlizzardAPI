@@ -4,6 +4,8 @@
             <directory>tests/endpoint/d3</directory>
             <directory>tests/endpoint/sc2</directory>
             <directory>tests/endpoint/wow</directory>
+            <directory>tests/endpoint/oauth</directory>
+            <directory>tests/endpoint/general</directory>
         </testsuite>
     </testsuites>
     <filter>

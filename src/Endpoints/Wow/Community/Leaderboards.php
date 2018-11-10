@@ -2,6 +2,7 @@
 namespace BlizzardApiService\Endpoints\Wow\Community;
 
 use BlizzardApiService\Endpoints\Endpoint;
+use BlizzardApiService\Exceptions\BracketException;
 
 class Leaderboards extends Endpoint
 {
@@ -10,9 +11,8 @@ class Leaderboards extends Endpoint
 
     public function get($bracket){
         if (!in_array($bracket, $this->possibleBrackets)){
-            throw new \Exception(
-                "Bracket $bracket not one of the possible values. " .
-                implode(', ', $this->possibleBrackets)
+            throw new BracketException(
+                $bracket, implode(', ', $this->possibleBrackets)
             );
         }
         $this->requestUrl .= $this->endpointUrl . $bracket;
