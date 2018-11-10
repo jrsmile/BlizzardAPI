@@ -19,7 +19,7 @@ class ApiException extends \Exception
     /**
      * @param object $apiResponse
      */
-    public function setApiResponse(object $apiResponse):void
+    public function setApiResponse(\Exception $apiResponse):void
     {
         $this->apiResponse = $apiResponse;
     }
