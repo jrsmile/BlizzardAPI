@@ -5,6 +5,7 @@ namespace BlizzardApiService\Endpoints;
 use BlizzardApiService\Context\ApiContext;
 use BlizzardApiService\Exceptions\ApiException;
 use BlizzardApiService\Settings\ApiUrls;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Response;
 
@@ -106,6 +107,10 @@ class Endpoint
                 $this->retryCounter++;
                 return $this->doRequest($url);
             }
+            throw (new ApiException(
+                'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
+            ));
+        }catch (ClientException $exception){
             throw (new ApiException(
                 'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
             ));

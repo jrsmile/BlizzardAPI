@@ -2,8 +2,10 @@
 
 namespace BlizzardApiService\Context;
 
+use BlizzardApiService\Exceptions\ApiException;
 use BlizzardApiService\Settings\ApiUrls;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class BlizzardApiContext extends ApiContext
 {
@@ -37,12 +39,18 @@ class BlizzardApiContext extends ApiContext
             return $this->accessToken;
         }
         $client   = new Client();
-        $response = $client->request('POST', ApiUrls::getTokenUrl($this->region) . '?grant_type=client_credentials', [
-            'headers' => [
-                'Authorization' => 'Basic '
-                    . base64_encode($this->clientId . ":" . $this->clientSecret),
-            ]
-        ]);
+        try {
+            $response = $client->request('POST', ApiUrls::getTokenUrl($this->region) . '?grant_type=client_credentials', [
+                'headers' => [
+                    'Authorization' => 'Basic '
+                        . base64_encode($this->clientId . ":" . $this->clientSecret),
+                ]
+            ]);
+        }catch (ClientException $exception){
+            throw (new ApiException(
+                'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
+            ));
+        }
         if($response->getStatusCode() !== 200){
             throw new \Exception(
                 'Error connecting to API: [' . $response->getStatusCode() . '] ' . $response->getReasonPhrase()
