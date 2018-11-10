@@ -7,6 +7,7 @@ require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'TestContext.php'
 
 final class urlGeneratorWoWCommunityTest extends TestCase
 {
+    /** @var \BlizzardApiService\Context\ApiContext */
     public $apiContext = null;
     public $apiKey     = null;
     public function setUp(){
@@ -338,7 +339,11 @@ final class urlGeneratorWoWCommunityTest extends TestCase
 
         $api      = new \BlizzardApiService\Endpoints\Wow\Community\RealmStatus($this->apiContext);
         $api->get();
+
+        $api      = new \BlizzardApiService\Endpoints\UrlDirect($this->apiContext);
+        $api->get('https://eu.api.blizzard.com/data/wow/connected-realm/509?namespace=dynamic-eu');
+
         $profilingData = $this->apiContext->getProfilingData();
-        $this->assertEquals(3, count($profilingData));
+        $this->assertEquals(4, count($profilingData));
     }
 }
