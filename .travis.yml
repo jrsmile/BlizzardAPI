@@ -22,7 +22,7 @@ script:
   - find src -type f -name '*.php' -exec php -l {} \; | (! grep -v "No syntax errors detected" )
 
 after_success:
- - php vendor/bin/coveralls -v
+ - php vendor/bin/php-coveralls -v
 
 
 
