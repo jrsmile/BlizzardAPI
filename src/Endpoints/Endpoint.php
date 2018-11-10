@@ -27,13 +27,40 @@ class Endpoint
     public function __construct(ApiContext $blizzardApiContext)
     {
         $this->apiContext = $blizzardApiContext;
+        $this->parameters['locale']       = $this->apiContext->getLocale();
+        $this->parameters['access_token'] = $this->apiContext->getAccessToken();
     }
 
     /**
      * @return mixed
      * @throws ApiException
      */
-    protected function sendRequest(){
+    protected function sendRequest()
+    {
+        if($this->namespace !== false){
+            $this->parameters['namespace'] = $this->namespace;
+        }
+
+        $url = $this->buildUrl();
+
+        $profilingActive  = $this->apiContext->isProfiling();
+        $measureStart     = false;
+        if($profilingActive){
+            $measureStart = microtime(true);
+        }
+
+        $response = $this->doRequest($url);
+
+        if($profilingActive){
+            $requestTime = microtime(true) - $measureStart;
+            $this->apiContext->addMeasurement(get_class(), $requestTime);
+        }
+
+        return $this->handleResponse($response);
+    }
+
+    private function buildUrl()
+    {
         $baseUrl = ApiUrls::getBaseUrl($this->apiContext->getRegion(), $this->oldApi);
         $url     = $baseUrl . $this->endpointUrl;
         if($this->requestUrl !== false){
@@ -43,45 +70,17 @@ class Endpoint
         if( $this->wholeUrl !== false) {
             $url = $this->wholeUrl;
         }
-
-        if($this->namespace !== false){
-            $this->parameters['namespace'] = $this->namespace;
-        }
-        $this->parameters['locale']       = $this->apiContext->getLocale();
-        $this->parameters['access_token'] = $this->apiContext->getAccessToken();
-
         $splitter = '?';
         if(strpos($url, '?') !== false){
             $splitter = '&';
         }
 
-        $finalUrl         = $url . $splitter . urldecode(http_build_query($this->parameters));
         $this->parameters = [];
-        $profilingActive  = $this->apiContext->isProfiling();
-        $measureStart     = false;
-        if($profilingActive){
-            $measureStart = microtime(true);
-        }
+        return $url . $splitter . urldecode(http_build_query($this->parameters));
+    }
 
-        try {
-            /** @var Response $response */
-            $response = $this->apiContext->sendRequest($finalUrl);
-        }catch (ServerException $exception){
-            if($this->retryCounter <= $this->apiContext->getRetryLimit()){
-                sleep($this->apiContext->getRetrySleepTime());
-                $this->retryCounter++;
-                return $this->sendRequest();
-            }
-            throw (new ApiException(
-                'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
-            ));
-        }
-        $this->retryCounter = 0;
-
-        if($profilingActive){
-            $requestTime = microtime(true) - $measureStart;
-            $this->apiContext->addMeasurement(get_class(), $requestTime);
-        }
+    private function handleResponse(Response $response)
+    {
 
         if($response->getStatusCode() !== 200){
             $responseBody = @json_decode((string) $response->getBody());
@@ -95,5 +94,23 @@ class Endpoint
             throw $exception;
         }
         return json_decode((string) $response->getBody());
+    }
+
+    public function doRequest($url){
+        try {
+            /** @var Response $response */
+            $response = $this->apiContext->sendRequest($url);
+        }catch (ServerException $exception){
+            if($this->retryCounter <= $this->apiContext->getRetryLimit()){
+                sleep($this->apiContext->getRetrySleepTime());
+                $this->retryCounter++;
+                return $this->sendRequest();
+            }
+            throw (new ApiException(
+                'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
+            ));
+        }
+        $this->retryCounter = 0;
+        return $response;
     }
 }
