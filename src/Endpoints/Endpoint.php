@@ -54,7 +54,7 @@ class Endpoint
 
         if($profilingActive){
             $requestTime = microtime(true) - $measureStart;
-            $this->apiContext->addMeasurement(get_class(), $requestTime);
+            $this->apiContext->addMeasurement(get_class($this), $requestTime);
         }
 
         return $this->handleResponse($response);

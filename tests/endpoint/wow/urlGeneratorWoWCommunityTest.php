@@ -13,6 +13,7 @@ final class urlGeneratorWoWCommunityTest extends TestCase
         $this->apiKey = md5((string)rand(0, 100));
         $this->apiContext = new TestContext('EU', 'de_DE');
         $this->apiContext->setAccessToken($this->apiKey);
+        $this->apiContext->setProfiling(true);
     }
 
 
@@ -326,5 +327,18 @@ final class urlGeneratorWoWCommunityTest extends TestCase
         $response = $api->get();
         $assertedUrl = "https://eu.api.blizzard.com/wow/zone/?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
+    }
+
+    public function testProfilingData(){
+        $api      = new \BlizzardApiService\Endpoints\Wow\Community\ZoneList($this->apiContext);
+        $api->get();
+
+        $api      = new \BlizzardApiService\Endpoints\Wow\Community\Talents($this->apiContext);
+        $api->get();
+
+        $api      = new \BlizzardApiService\Endpoints\Wow\Community\RealmStatus($this->apiContext);
+        $api->get();
+        $profilingData = $this->apiContext->getProfilingData();
+        $this->assertEquals(3, count($profilingData));
     }
 }
