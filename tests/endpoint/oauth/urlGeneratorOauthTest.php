@@ -17,7 +17,7 @@ final class urlGeneratorOauthTest extends TestCase
 
 
     public function testAccount(){
-        $api      = new \BlizzardApiService\Endpoints\Oauth\Account($this->apiContext);
+        $api      = new \BlizzardApiService\Endpoints\OAuth\Account($this->apiContext);
         $response = $api->get();
         $assertedUrl = "https://eu.battle.net/account/user?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
@@ -25,7 +25,7 @@ final class urlGeneratorOauthTest extends TestCase
 
 
     public function testSc2Profile(){
-        $api      = new \BlizzardApiService\Endpoints\Oauth\Sc2Profile($this->apiContext);
+        $api      = new \BlizzardApiService\Endpoints\OAuth\Sc2Profile($this->apiContext);
         $response = $api->get();
         $assertedUrl = "https://eu.battle.net/sc2/profile/user?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
@@ -33,7 +33,7 @@ final class urlGeneratorOauthTest extends TestCase
 
 
     public function testWoWCharacters(){
-        $api      = new \BlizzardApiService\Endpoints\Oauth\WoWCharacters($this->apiContext);
+        $api      = new \BlizzardApiService\Endpoints\OAuth\WoWCharacters($this->apiContext);
         $response = $api->get();
         $assertedUrl = "https://eu.battle.net/wow/user/characters?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);

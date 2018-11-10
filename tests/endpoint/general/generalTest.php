@@ -37,8 +37,7 @@ class generalTest extends TestCase
 
     public function testApiException2(){
         $exception = new \BlizzardApiService\Exceptions\ApiException();
-        $responseAsserted = new stdClass();
-        $responseAsserted->foo = 'bar';
+        $responseAsserted = new Exception();
         $exception->setApiResponse($responseAsserted);
         $response = $exception->getApiResponse();
         $this->assertEquals($response, $responseAsserted);
