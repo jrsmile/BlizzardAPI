@@ -30,9 +30,14 @@ class generalTest extends TestCase
     public function testApiException(){
         $this->expectException(\BlizzardApiService\Exceptions\ApiException::class);
         $apiContext = new \BlizzardApiService\Context\BlizzardApiContext('EU', 'de_DE');
-        $api      = new \BlizzardApiService\Endpoints\Wow\Community\Leaderboards($apiContext);
-        $requestedId = '2v2';
-        $api->get($requestedId);
+        $apiContext->getAccessToken();
+    }
+
+    public function testApiUrls(){
+        \BlizzardApiService\Settings\ApiUrls::getBaseUrl('EU');
+        \BlizzardApiService\Settings\ApiUrls::getBaseUrl('EU', true);
+        \BlizzardApiService\Settings\ApiUrls::getTokenUrl('EU');
+        \BlizzardApiService\Settings\ApiUrls::getAuthUrl('EU');
 
     }
 }
