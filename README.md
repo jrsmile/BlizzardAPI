@@ -31,10 +31,12 @@ composer require jared87/blizzard-api-service
 To use this package you mainly have to create an API context, which provides the authentication with the Blizzard APIs
 ```php
 $apiContext = new \BlizzardApiService\Context\BlizzardApiContext(
-    'YOUR_API_CLIENT_ID',
-    'YOUR_API_CLIENT_SECRET',
     'REGION_TAG_YOU_WANT_TO_ACCESS', // US, EU, TW, CN, SEA
     'LOCALE' //en_US, en_GB, de_DE, fr_FR, ...
+);
+$apiContext->setApiCredentials(
+    'YOUR_API_CLIENT_ID',
+    'YOUR_API_CLIENT_SECRET'
 );
 ```
 We highly recommend to cache this object for its validity period, so you can reuse it without requesting a new one on each page. It provides the timestamp it expires through a ->getExpiresAt(); function

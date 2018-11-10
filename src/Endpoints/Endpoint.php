@@ -82,7 +82,6 @@ class Endpoint
 
     private function handleResponse(Response $response)
     {
-
         if($response->getStatusCode() !== 200){
             $responseBody = @json_decode((string) $response->getBody());
             if(json_last_error() == JSON_ERROR_NONE){
@@ -105,7 +104,7 @@ class Endpoint
             if($this->retryCounter <= $this->apiContext->getRetryLimit()){
                 sleep($this->apiContext->getRetrySleepTime());
                 $this->retryCounter++;
-                return $this->sendRequest();
+                return $this->doRequest($url);
             }
             throw (new ApiException(
                 'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception

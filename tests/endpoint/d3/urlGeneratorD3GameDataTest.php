@@ -11,7 +11,7 @@ class urlGeneratorD3GameDataTest extends TestCase
     public $apiKey     = null;
     public function setUp(){
         $this->apiKey = md5((string)rand(0, 100));
-        $this->apiContext = new TestOauthContext('foo', 'bar', 'EU', 'de_DE', $this->apiKey);
+        $this->apiContext = new TestOauthContext('EU', 'de_DE', '');
         $this->apiContext->setAccessToken($this->apiKey);
     }
 

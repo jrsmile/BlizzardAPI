@@ -63,4 +63,8 @@ class TestContext extends BlizzardApiContext
         }
         return $result;
     }
+
+    public function setAccessToken($accessToken){
+        $this->accessToken = $accessToken;
+    }
 }

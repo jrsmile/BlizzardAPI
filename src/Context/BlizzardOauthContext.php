@@ -8,8 +8,6 @@ use League\OAuth2\Client\Provider\GenericProvider;
 
 class BlizzardOauthContext extends ApiContext
 {
-    protected $clientId     = false;
-    protected $clientSecret = false;
     protected $redirectUrl  = false;
     protected $accessToken  = null;
     /**
@@ -30,17 +28,13 @@ class BlizzardOauthContext extends ApiContext
     /**
      * BlizzardOauthContext constructor.
      *
-     * @param string $clientId
-     * @param string $clientSecret
      * @param string $region
      * @param string $locale
      * @param string $redirectUrl
      * @param array $scopes
      */
-    public function __construct($clientId, $clientSecret, $region, $locale, $redirectUrl, $scopes = [])
+    public function __construct($region, $locale, $redirectUrl, $scopes = [])
     {
-        $this->clientId     = $clientId;
-        $this->clientSecret = $clientSecret;
         $this->redirectUrl  = $redirectUrl;
         $this->scopes       = $scopes;
         $this->region       = $region;
