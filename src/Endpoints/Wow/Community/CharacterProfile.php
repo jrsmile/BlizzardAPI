@@ -27,7 +27,7 @@ class CharacterProfile extends Endpoint
     const FIELD_TITLES       = 131072;
     const FIELD_AUDIT        = 262144;
 
-    private $fields = [
+    protected $fields = [
         1      => 'achievements',
         2      => 'appearance',
         4      => 'feed',
@@ -58,18 +58,5 @@ class CharacterProfile extends Endpoint
         $this->requestUrl = $this->endpointUrl . $realmSlug . '/' . $characterName;
 
         return $this->sendRequest();
-    }
-
-    private function calcFields($fieldInt){
-        $usedFields = [];
-        $possibleFields = array_reverse($this->fields, true);
-        foreach ($possibleFields as $fieldWorth => $field){
-            if($fieldInt >= $fieldWorth){
-                $usedFields[] = $field;
-                $fieldInt    -= $fieldWorth;
-            }
-        }
-        $usedFields = array_reverse($usedFields);
-        return implode(',', $usedFields);
     }
 }

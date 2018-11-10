@@ -17,6 +17,7 @@ class Endpoint
     protected $parameters    = [];
     protected $retryCounter  = 0;
     protected $oldApi        = false;
+    protected $fields        = [];
 
 
     protected $wholeUrl    = false;
@@ -112,5 +113,18 @@ class Endpoint
         }
         $this->retryCounter = 0;
         return $response;
+    }
+
+    protected function calcFields($fieldInt){
+        $usedFields = [];
+        $possibleFields = array_reverse($this->fields, true);
+        foreach ($possibleFields as $fieldWorth => $field){
+            if($fieldInt >= $fieldWorth){
+                $usedFields[] = $field;
+                $fieldInt    -= $fieldWorth;
+            }
+        }
+        $usedFields = array_reverse($usedFields);
+        return implode(',', $usedFields);
     }
 }
