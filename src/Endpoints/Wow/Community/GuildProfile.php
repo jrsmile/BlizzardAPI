@@ -12,7 +12,7 @@ class GuildProfile extends Endpoint
     const FIELD_NEWS         = 4;
     const FIELD_CHALLENGE    = 8;
 
-    private $fields = [
+    protected $fields = [
         1 => 'members',
         2 => 'achievements',
         4 => 'news',
@@ -25,18 +25,5 @@ class GuildProfile extends Endpoint
         $this->parameters['fields'] = $this->calcFields($fieldInt);
         $this->requestUrl          .= $this->endpointUrl . $realmSlug . '/' . $guildName;
         return $this->sendRequest();
-    }
-
-    private function calcFields($fieldInt){
-        $usedFields = [];
-        $possibleFields = array_reverse($this->fields, true);
-        foreach ($possibleFields as $fieldWorth => $field){
-            if($fieldInt >= $fieldWorth){
-                $usedFields[] = $field;
-                $fieldInt    -= $fieldWorth;
-            }
-        }
-        $usedFields = array_reverse($usedFields);
-        return implode(',', $usedFields);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-class TestResponse
+class TestResponse extends \GuzzleHttp\Psr7\Response
 {
     public $url = null;
     public function getStatusCode(){
