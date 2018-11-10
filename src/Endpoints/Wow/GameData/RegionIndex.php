@@ -1,5 +1,4 @@
 <?php
-
 namespace BlizzardApiService\Endpoints\Wow\GameData;
 
 

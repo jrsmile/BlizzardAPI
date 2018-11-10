@@ -1,5 +1,4 @@
 <?php
-
 namespace BlizzardApiService\Endpoints\Wow\Community;
 
 use BlizzardApiService\Endpoints\Endpoint;
