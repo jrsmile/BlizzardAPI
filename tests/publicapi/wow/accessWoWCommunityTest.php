@@ -11,7 +11,9 @@ final class accessWoWCommunityTest extends TestCase
     public $apiKey     = null;
     public function setUp(){
         global $clientId, $clientSecret;
-        $this->apiContext = new BlizzardApiContext($clientId, $clientSecret, 'EU', 'de_DE');
+        $this->apiContext = new BlizzardApiContext('EU', 'de_DE');
+        $this->apiContext->setApiCredentials($clientId, $clientSecret);
+
         $this->apiContext->setRetries(10);
         $this->apiContext->setSleepTime(5);
     }

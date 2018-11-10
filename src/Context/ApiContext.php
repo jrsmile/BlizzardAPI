@@ -106,4 +106,11 @@ abstract class ApiContext
     {
         $this->sleepTime = $sleepTime;
     }
+
+    public function setApiCredentials(string $clientId, string $clientSecret)
+    {
+        $this->clientId     = $clientId;
+        $this->clientSecret = $clientSecret;
+        $this->getAccessToken();
+    }
 }

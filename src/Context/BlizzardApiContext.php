@@ -15,33 +15,19 @@ class BlizzardApiContext extends ApiContext
     /**
      * BlizzardApiProvider constructor.
      *
-     * @param string $clientId
-     * @param string $clientSecret
      * @param $region
      * @param string $locale
-     * @param bool|string $accessToken
      * @internal param array $options
      * @internal param array $collaborators
      */
     public function __construct(
-        $clientId,
-        $clientSecret,
         $region,
-        $locale,
-        $accessToken = null
+        $locale
     )
     {
-        $this->clientId     = $clientId;
-        $this->clientSecret = $clientSecret;
         $this->region       = strtoupper($region);
         $this->locale       = $locale;
         $this->baseUrl      = ApiUrls::getBaseUrl($this->region);
-
-        if ($accessToken !== null) {
-            $this->accessToken = $accessToken;
-            return;
-        }
-        $this->getAccessToken();
     }
 
 
