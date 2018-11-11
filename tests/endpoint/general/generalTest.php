@@ -72,8 +72,8 @@ class generalTest extends TestCase
         $apiContext->setProfiling(true);
         $this->assertTrue($apiContext->isProfiling());
 
-        $this->assertTrue('EU', $apiContext->getRegion());
-        $this->assertTrue('de_DE', $apiContext->getLocale());
+        $this->assertEquals('EU', $apiContext->getRegion());
+        $this->assertEquals('de_DE', $apiContext->getLocale());
         $apiContext->setRetries(5);
         $this->assertEquals(5, $apiContext->getRetryLimit());
 
