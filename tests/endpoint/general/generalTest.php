@@ -60,4 +60,44 @@ class generalTest extends TestCase
         $locale = $this->apiContext->getLocale();
         $this->assertEquals($this->locale, $locale);
     }
+
+    public function testApiContext(){
+
+        $apiContext = new TestContext('EU', 'de_DE');
+        $apiContext->setAccessToken('foo');
+        $this->assertEquals('foo', $apiContext->getAccessToken());
+
+        $this->assertFalse($apiContext->isProfiling());
+
+        $apiContext->setProfiling(true);
+        $this->assertTrue($apiContext->isProfiling());
+
+        $this->assertTrue('EU', $apiContext->getRegion());
+        $this->assertTrue('de_DE', $apiContext->getLocale());
+        $apiContext->setRetries(5);
+        $this->assertEquals(5, $apiContext->getRetryLimit());
+
+        $apiContext->setSleepTime(1);
+        $this->assertEquals(1, $apiContext->getRetrySleepTime());
+
+        $this->assertEquals('foo', $apiContext->setApiCredentials('foo', 'bar'));
+
+
+
+
+        $apiContext->addMeasurement('Test', 0.1);
+        $apiContext->addMeasurement('Test', 0.5);
+
+        $measurements = $apiContext->getProfilingData();
+
+        $assertedResponse = [
+            'Test' => [
+                'min' => 0.1,
+                'max' => 0.5,
+                'avg' => 0.3,
+                'count' => 2
+            ]
+        ];
+        $this->assertEquals($assertedResponse, $measurements);
+    }
 }

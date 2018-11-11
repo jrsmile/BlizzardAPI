@@ -111,6 +111,6 @@ abstract class ApiContext
     {
         $this->clientId     = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->getAccessToken();
+        return $this->getAccessToken();
     }
 }
