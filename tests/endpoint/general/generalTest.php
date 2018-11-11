@@ -24,9 +24,19 @@ class generalTest extends TestCase
         $api->get($requestedId);
     }
 
-    public function testRegionException(){
+    public function testRegionExceptionBaseUrl(){
         $this->expectException(\BlizzardApiService\Exceptions\RegionException::class);
         \BlizzardApiService\Settings\ApiUrls::getBaseUrl('FOO');
+    }
+
+    public function testRegionExceptionAuthUrl(){
+        $this->expectException(\BlizzardApiService\Exceptions\RegionException::class);
+        \BlizzardApiService\Settings\ApiUrls::getAuthUrl('FOO');
+    }
+
+    public function testRegionExceptionTokenUrl(){
+        $this->expectException(\BlizzardApiService\Exceptions\RegionException::class);
+        \BlizzardApiService\Settings\ApiUrls::getTokenUrl('FOO');
     }
 
     public function testApiException(){
