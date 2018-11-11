@@ -47,9 +47,7 @@ class BlizzardApiContext extends ApiContext
                 ]
             ]);
         }catch (ClientException $exception){
-            throw (new ApiException(
-                'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
-            ));
+            throw (new ApiException('Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception));
         }
         if($response->getStatusCode() !== 200){
             throw new \Exception(
