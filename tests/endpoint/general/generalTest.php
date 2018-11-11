@@ -24,9 +24,19 @@ class generalTest extends TestCase
         $api->get($requestedId);
     }
 
-    public function testRegionException(){
+    public function testRegionExceptionBaseUrl(){
         $this->expectException(\BlizzardApiService\Exceptions\RegionException::class);
         \BlizzardApiService\Settings\ApiUrls::getBaseUrl('FOO');
+    }
+
+    public function testRegionExceptionAuthUrl(){
+        $this->expectException(\BlizzardApiService\Exceptions\RegionException::class);
+        \BlizzardApiService\Settings\ApiUrls::getAuthUrl('FOO');
+    }
+
+    public function testRegionExceptionTokenUrl(){
+        $this->expectException(\BlizzardApiService\Exceptions\RegionException::class);
+        \BlizzardApiService\Settings\ApiUrls::getTokenUrl('FOO');
     }
 
     public function testApiException(){
@@ -59,5 +69,45 @@ class generalTest extends TestCase
         $this->assertEquals($this->region, $region);
         $locale = $this->apiContext->getLocale();
         $this->assertEquals($this->locale, $locale);
+    }
+
+    public function testApiContext(){
+
+        $apiContext = new TestContext('EU', 'de_DE');
+        $apiContext->setAccessToken('foo');
+        $this->assertEquals('foo', $apiContext->getAccessToken());
+
+        $this->assertFalse($apiContext->isProfiling());
+
+        $apiContext->setProfiling(true);
+        $this->assertTrue($apiContext->isProfiling());
+
+        $this->assertEquals('EU', $apiContext->getRegion());
+        $this->assertEquals('de_DE', $apiContext->getLocale());
+        $apiContext->setRetries(5);
+        $this->assertEquals(5, $apiContext->getRetryLimit());
+
+        $apiContext->setSleepTime(1);
+        $this->assertEquals(1, $apiContext->getRetrySleepTime());
+
+        $this->assertEquals('foo', $apiContext->setApiCredentials('foo', 'bar'));
+
+
+
+
+        $apiContext->addMeasurement('Test', 0.1);
+        $apiContext->addMeasurement('Test', 0.5);
+
+        $measurements = $apiContext->getProfilingData();
+
+        $assertedResponse = [
+            'Test' => [
+                'min' => 0.1,
+                'max' => 0.5,
+                'avg' => 0.3,
+                'count' => 2
+            ]
+        ];
+        $this->assertEquals($assertedResponse, $measurements);
     }
 }
