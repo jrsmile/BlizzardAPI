@@ -33,35 +33,6 @@ abstract class ApiContext
         $this->profiling = $profiling;
     }
 
-    /**
-     * @param string $className
-     * @param float $runtime
-     */
-    public function addMeasurement(string $className, float $runtime): void
-    {
-        if(!isset($this->profilingData[$className])){
-            $this->profilingData[$className] = [];
-        }
-        $this->profilingData[$className][] = $runtime;
-    }
-
-    /**
-     * @return array
-     */
-    public function getProfilingData(): array
-    {
-        $result = [];
-        foreach ($this->profilingData as $endpoint => $data){
-            $result[$endpoint] = [
-                'min'   => min($data),
-                'max'   => max($data),
-                'avg'   => array_sum($data) / count($data),
-                'count' => count($data),
-            ];
-        }
-        return $result;
-    }
-
     public function getLocale():string
     {
         return $this->locale;

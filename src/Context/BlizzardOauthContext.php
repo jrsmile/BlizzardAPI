@@ -5,6 +5,7 @@ namespace BlizzardApiService\Context;
 use BlizzardApiService\Settings\ApiUrls;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\GenericProvider;
+use League\OAuth2\Client\Token\AccessToken;
 
 class BlizzardOauthContext extends ApiContext
 {
@@ -24,6 +25,7 @@ class BlizzardOauthContext extends ApiContext
      */
     protected $locale;
     protected $code;
+    protected $tokenValidUntil;
 
     /**
      * BlizzardOauthContext constructor.
@@ -44,9 +46,10 @@ class BlizzardOauthContext extends ApiContext
     public function getLoginUrl():string
     {
         $provider         = $this->getProvider();
+        $authUrl          = $provider->getAuthorizationUrl();
         $this->oAuthState = $provider->getState();
 
-        return $provider->getAuthorizationUrl();
+        return $authUrl;
     }
 
     /**
@@ -68,19 +71,26 @@ class BlizzardOauthContext extends ApiContext
      */
     public function getAccessToken():string
     {
+        if(!empty($this->accessToken)){
+            return $this->accessToken;
+        }
+
         $provider = $this->getProvider();
         try{
-            $this->accessToken = $provider->getAccessToken('authorization_code', [
+            /** @var AccessToken $accessToken */
+            $accessToken = $provider->getAccessToken('authorization_code', [
                 'code' => $this->code
             ]);
         }catch (IdentityProviderException $exception){
             return false;
         }
+        $this->accessToken = $accessToken->getToken();
+        $this->tokenValidUntil = $accessToken->getExpires();
         return $this->accessToken;
     }
 
     /**
-     * @return object
+     * @return object GenericProvider
      */
     private function getProvider():object
     {
@@ -93,5 +103,24 @@ class BlizzardOauthContext extends ApiContext
             'urlResourceOwnerDetails' => '',
             'scopes'                  => implode(' ', $this->scopes)
         ]);
+    }
+
+
+    public function setApiCredentials(string $clientId, string $clientSecret)
+    {
+        $this->clientId     = $clientId;
+        $this->clientSecret = $clientSecret;
+    }
+
+    public function setAccessToken(string $accessToken){
+        $this->accessToken = $accessToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTokenValidUntil()
+    {
+        return $this->tokenValidUntil;
     }
 }
