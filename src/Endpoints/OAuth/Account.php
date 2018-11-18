@@ -8,7 +8,7 @@ class Account extends Endpoint
 {
     /** @var BlizzardOauthContext */
     protected $apiContext  = false;
-    protected $endpointUrl = '/account/user';
+    protected $endpointUrl = '/oauth/userinfo';
     protected $oldApi      = true;
 
     public function __construct(BlizzardOauthContext $blizzardApiContext)

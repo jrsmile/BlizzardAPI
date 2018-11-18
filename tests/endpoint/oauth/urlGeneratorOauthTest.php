@@ -19,7 +19,7 @@ final class urlGeneratorOauthTest extends TestCase
     public function testAccount(){
         $api      = new \BlizzardApiService\Endpoints\OAuth\Account($this->apiContext);
         $response = $api->get();
-        $assertedUrl = "https://eu.battle.net/account/user?locale=de_DE&access_token={$this->apiKey}";
+        $assertedUrl = "https://eu.battle.net/oauth/userinfo?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
     }
 

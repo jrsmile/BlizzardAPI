@@ -329,21 +329,4 @@ final class urlGeneratorWoWCommunityTest extends TestCase
         $assertedUrl = "https://eu.api.blizzard.com/wow/zone/?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
     }
-
-    public function testProfilingData(){
-        $api      = new \BlizzardApiService\Endpoints\Wow\Community\ZoneList($this->apiContext);
-        $api->get();
-
-        $api      = new \BlizzardApiService\Endpoints\Wow\Community\Talents($this->apiContext);
-        $api->get();
-
-        $api      = new \BlizzardApiService\Endpoints\Wow\Community\RealmStatus($this->apiContext);
-        $api->get();
-
-        $api      = new \BlizzardApiService\Endpoints\UrlDirect($this->apiContext);
-        $api->get('https://eu.api.blizzard.com/data/wow/connected-realm/509?namespace=dynamic-eu');
-
-        $profilingData = $this->apiContext->getProfilingData();
-        $this->assertEquals(4, count($profilingData));
-    }
 }

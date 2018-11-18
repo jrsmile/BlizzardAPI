@@ -91,23 +91,5 @@ class generalTest extends TestCase
         $this->assertEquals(1, $apiContext->getRetrySleepTime());
 
         $this->assertEquals('foo', $apiContext->setApiCredentials('foo', 'bar'));
-
-
-
-
-        $apiContext->addMeasurement('Test', 0.1);
-        $apiContext->addMeasurement('Test', 0.5);
-
-        $measurements = $apiContext->getProfilingData();
-
-        $assertedResponse = [
-            'Test' => [
-                'min' => 0.1,
-                'max' => 0.5,
-                'avg' => 0.3,
-                'count' => 2
-            ]
-        ];
-        $this->assertEquals($assertedResponse, $measurements);
     }
 }

@@ -16,7 +16,7 @@ class TestOauthContext extends BlizzardOauthContext
         return 'de_DE';
     }
 
-    public function setAccessToken($key): void
+    public function setAccessToken(string $key)
     {
         $this->accessToken = $key;
     }

@@ -5,6 +5,7 @@ namespace BlizzardApiService\Endpoints;
 use BlizzardApiService\Context\ApiContext;
 use BlizzardApiService\Exceptions\ApiException;
 use BlizzardApiService\Settings\ApiUrls;
+use BlizzardApiService\Statistics\Hook;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Psr7\Response;
@@ -19,6 +20,7 @@ class Endpoint
     protected $retryCounter  = 0;
     protected $oldApi        = false;
     protected $fields        = [];
+    protected $measureStart;
 
 
     protected $wholeUrl    = false;
@@ -45,18 +47,9 @@ class Endpoint
 
         $url = $this->buildUrl();
 
-        $profilingActive  = $this->apiContext->isProfiling();
-        $measureStart     = false;
-        if($profilingActive){
-            $measureStart = microtime(true);
-        }
-
         $response = $this->doRequest($url);
 
-        if($profilingActive){
-            $requestTime = microtime(true) - $measureStart;
-            $this->apiContext->addMeasurement(get_class($this), $requestTime);
-        }
+
 
         return $this->handleResponse($response);
     }
@@ -97,11 +90,14 @@ class Endpoint
         return json_decode((string) $response->getBody());
     }
 
-    public function doRequest($url){
+    protected function doRequest($url){
         try {
+            $this->profilerStart();
             /** @var Response $response */
             $response = $this->apiContext->sendRequest($url);
+            $this->profilerEnd($response->getStatusCode());
         }catch (ServerException $exception){
+            $this->profilerEnd($exception->getCode());
             if($this->retryCounter <= $this->apiContext->getRetryLimit()){
                 sleep($this->apiContext->getRetrySleepTime());
                 $this->retryCounter++;
@@ -111,6 +107,7 @@ class Endpoint
                 'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
             ));
         }catch (ClientException $exception){
+            $this->profilerEnd($exception->getCode());
             throw (new ApiException(
                 'Error connecting to API: [' . $exception->getCode() . '] ', 0, $exception
             ));
@@ -130,5 +127,22 @@ class Endpoint
         }
         $usedFields = array_reverse($usedFields);
         return implode(',', $usedFields);
+    }
+
+    protected function profilerStart(){
+        $profilingActive  = $this->apiContext->isProfiling();
+        if($profilingActive){
+            $this->measureStart = microtime(true);
+        }
+    }
+
+    protected function profilerEnd($statusCode){
+        $profilingActive  = $this->apiContext->isProfiling();
+        if($profilingActive){
+            $requestTime = microtime(true) - $this->measureStart;
+            Hook::callHooks(get_class($this), $statusCode, $requestTime);
+            return $requestTime;
+        }
+        return false;
     }
 }
