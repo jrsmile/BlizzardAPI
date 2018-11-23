@@ -9,7 +9,6 @@ class WoWCharacters extends Endpoint
     /** @var BlizzardOauthContext */
     protected $apiContext  = false;
     protected $endpointUrl = '/wow/user/characters';
-    protected $oldApi      = true;
 
     public function __construct(BlizzardOauthContext $blizzardApiContext)
     {
