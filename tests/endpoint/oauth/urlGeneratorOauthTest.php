@@ -35,7 +35,7 @@ final class urlGeneratorOauthTest extends TestCase
     public function testWoWCharacters(){
         $api      = new \BlizzardApiService\Endpoints\OAuth\WoWCharacters($this->apiContext);
         $response = $api->get();
-        $assertedUrl = "https://eu.battle.net/wow/user/characters?locale=de_DE&access_token={$this->apiKey}";
+        $assertedUrl = "https://eu.api.blizzard.com/wow/user/characters?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);
     }
 }
