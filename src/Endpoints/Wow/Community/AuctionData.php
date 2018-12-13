@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class AuctionData extends Endpoint
 {
-    protected $endpointUrl = '/wow/auction/data/';
+    protected $endpointUrl = '/wow/auction/data/%s';
 
-    public function get($realmSlug){
-        $this->requestUrl .= $this->endpointUrl . $realmSlug;
-        return $this->sendRequest();
+    public function __construct(string $realmSlug)
+    {
+        $this->setUrl($realmSlug);
+        parent::__construct();
     }
 }

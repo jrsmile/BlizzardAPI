@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class ItemType extends Endpoint
 {
-    protected $endpointUrl = '/d3/data/item-type/';
+    protected $endpointUrl = '/d3/data/item-type/%s';
 
-    public function get($itemTypeSlug){
-        $this->requestUrl .= $this->endpointUrl . $itemTypeSlug;
-        return $this->sendRequest();
+    public function __construct(string $itemTypeSlug)
+    {
+        $this->setUrl($itemTypeSlug);
+        parent::__construct();
     }
 }

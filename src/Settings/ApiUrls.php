@@ -22,14 +22,6 @@ final class ApiUrls
         'SEA' => 'https://sea.api.blizzard.com',
     ];
 
-    private static $oldBaseUrls = [
-        'US'  => 'https://us.battle.net',
-        'EU'  => 'https://eu.battle.net',
-        'KR'  => 'https://kr.battle.net',
-        'TW'  => 'https://tw.battle.net',
-        'SEA' => 'https://sea.battle.net',
-    ];
-
     private static $authUrls = [
         'US'  => 'https://us.battle.net/oauth/authorize',
         'EU'  => 'https://eu.battle.net/oauth/authorize',
@@ -46,18 +38,16 @@ final class ApiUrls
         'SEA' => 'https://sea.battle.net/oauth/token',
     ];
 
-    public static function getBaseUrl($region, $old = false)
+    public static function getBaseUrl($region)
     {
-        $urls = $old ? self::$oldBaseUrls : self::$baseUrls;
-        if (!isset($urls[$region])) {
+        if (!isset(self::$baseUrls[$region])) {
             throw new RegionException($region);
         }
-        return $urls[$region];
+        return self::$baseUrls[$region];
     }
 
     public static function getTokenUrl($region)
     {
-
         if (!isset(self::$tokenUrls[$region])) {
             throw new RegionException($region);
         }
@@ -66,7 +56,6 @@ final class ApiUrls
 
     public static function getAuthUrl($region)
     {
-
         if (!isset(self::$authUrls[$region])) {
             throw new RegionException($region);
         }

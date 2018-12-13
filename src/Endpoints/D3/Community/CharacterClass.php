@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class CharacterClass extends Endpoint
 {
-    protected $endpointUrl = '/d3/data/hero/';
+    protected $endpointUrl = '/d3/data/hero/%s';
 
-    public function get($classSlug){
-        $this->requestUrl .= $this->endpointUrl . $classSlug;
-        return $this->sendRequest();
+    public function __construct(string $classSlug)
+    {
+        $this->setUrl($classSlug);
+        parent::__construct();
     }
 }

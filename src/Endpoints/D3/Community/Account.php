@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Account extends Endpoint
 {
-    protected $endpointUrl = '/d3/profile/';
+    protected $endpointUrl = '/d3/profile/%s/';
 
-    public function get($battleTag){
-        $this->requestUrl .= $this->endpointUrl . urlencode($battleTag).'/';
-        return $this->sendRequest();
+    public function __construct(string $battleTag)
+    {
+        $this->setUrl(urlencode($battleTag));
+        parent::__construct();
     }
 }

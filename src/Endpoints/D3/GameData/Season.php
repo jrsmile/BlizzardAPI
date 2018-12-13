@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Season extends Endpoint
 {
-    protected $endpointUrl = '/data/d3/season/';
+    protected $endpointUrl = '/data/d3/season/%d';
 
-    public function get($seasonId){
-        $this->requestUrl .= $this->endpointUrl . $seasonId;
-        return $this->sendRequest();
+    public function __construct(int $seasonId)
+    {
+        $this->setUrl($seasonId);
+        parent::__construct();
     }
 }

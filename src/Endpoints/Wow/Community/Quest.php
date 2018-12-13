@@ -5,10 +5,10 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Quest extends Endpoint
 {
-    protected $endpointUrl = '/wow/quest/';
+    protected $endpointUrl = '/wow/quest/%d';
 
-    public function get($questId){
-        $this->requestUrl .= $this->endpointUrl . $questId;
-        return $this->sendRequest();
+    public function __construct($questId){
+        $this->setUrl($questId);
+        parent::__construct();
     }
 }

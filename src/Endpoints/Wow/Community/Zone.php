@@ -5,10 +5,10 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Zone extends Endpoint
 {
-    protected $endpointUrl = '/wow/zone/';
+    protected $endpointUrl = '/wow/zone/%d';
 
-    public function get($zoneId){
-        $this->requestUrl .= $this->endpointUrl . $zoneId;
-        return $this->sendRequest();
+    public function __construct(int $zoneId){
+        $this->setUrl($zoneId);
+        parent::__construct();
     }
 }

@@ -7,15 +7,15 @@ use BlizzardApiService\Exceptions\BracketException;
 class Leaderboards extends Endpoint
 {
     protected $possibleBrackets = ['2v2', '3v3', '5v5', 'rbg'];
-    protected $endpointUrl      = '/wow/leaderboard/';
+    protected $endpointUrl      = '/wow/leaderboard/%s';
 
-    public function get($bracket){
+    public function __construct(string $bracket){
         if (!in_array($bracket, $this->possibleBrackets)){
             throw new BracketException(
                 $bracket, implode(', ', $this->possibleBrackets)
             );
         }
-        $this->requestUrl .= $this->endpointUrl . $bracket;
-        return $this->sendRequest();
+        $this->setUrl($bracket);
+        parent::__construct();
     }
 }

@@ -1,27 +1,26 @@
 <?php
-use BlizzardApiService\Context\BlizzardApiContext;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'TestResponse.php';
 
-class TestContext extends BlizzardApiContext
+class TestContext extends \BlizzardApiService\Context\BlizzardContext
 {
-    protected $accessToken = null;
-    protected $profilingData = [];
+    protected static $accessToken = null;
 
 
-    public function getAccessToken(): string
+    public static function getAccessToken(): \BlizzardApiService\Context\AccessToken
     {
-        return $this->accessToken;
+        return self::$accessToken;
     }
 
-    public function sendRequest($finalUrl)
+    public static function sendRequest(string $finalUrl, bool $needsUserToken = false):object
     {
         $response = new TestResponse();
         $response->url = $finalUrl;
         return $response;
     }
 
-    public function setAccessToken($accessToken){
-        $this->accessToken = $accessToken;
+    public static function setAccessToken(\BlizzardApiService\Context\AccessToken $accessToken): void
+    {
+        self::$accessToken = $accessToken;
     }
 }

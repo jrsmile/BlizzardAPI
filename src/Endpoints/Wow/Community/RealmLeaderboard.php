@@ -5,10 +5,10 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class RealmLeaderboard extends Endpoint
 {
-    protected $endpointUrl = '/wow/challenge/';
+    protected $endpointUrl = '/wow/challenge/%s';
 
-    public function get($realmSlug){
-        $this->requestUrl .= $this->endpointUrl . $realmSlug;
-        return $this->sendRequest();
+    public function __construct($realmSlug){
+        $this->setUrl($realmSlug);
+        parent::__construct();
     }
 }

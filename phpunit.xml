@@ -1,11 +1,8 @@
 <phpunit>
     <testsuites>
-        <testsuite name="endpoints">
-            <directory>tests/endpoint/d3</directory>
-            <directory>tests/endpoint/sc2</directory>
-            <directory>tests/endpoint/wow</directory>
-            <directory>tests/endpoint/oauth</directory>
-            <directory>tests/endpoint/general</directory>
+        <testsuite name="withapi">
+            <directory>tests/publicapi/d3</directory>
+            <directory>tests/publicapi/wow</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -13,7 +10,4 @@
             <directory>src</directory>
         </whitelist>
     </filter>
-    <logging>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-    </logging>
 </phpunit>

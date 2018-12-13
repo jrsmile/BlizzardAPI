@@ -5,10 +5,10 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class ItemSet extends Endpoint
 {
-    protected $endpointUrl = '/wow/item/set/';
+    protected $endpointUrl = '/wow/item/set/%d';
 
-    public function get($itemSetId){
-        $this->requestUrl .= $this->endpointUrl . $itemSetId;
-        return $this->sendRequest();
+    public function __construct(int $itemSetId){
+        $this->setUrl($itemSetId);
+        parent::__construct();
     }
 }

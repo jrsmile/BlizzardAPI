@@ -18,11 +18,12 @@ class GuildProfile extends Endpoint
         8 => 'challenge',
     ];
 
-    protected $endpointUrl = '/wow/guild/';
+    protected $endpointUrl = '/wow/guild/%s/%s';
 
-    public function get($realmSlug, $guildName, $fieldInt = self::FIELD_MEMBERS){
+    public function __construct(string $realmSlug, string $guildName, int $fieldInt = self::FIELD_MEMBERS)
+    {
         $this->parameters['fields'] = $this->calcFields($fieldInt);
-        $this->requestUrl          .= $this->endpointUrl . $realmSlug . '/' . $guildName;
-        return $this->sendRequest();
+        $this->setUrl($realmSlug, $guildName);
+        parent::__construct();
     }
 }

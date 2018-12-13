@@ -48,14 +48,13 @@ class CharacterProfile extends Endpoint
         262144 => 'audit',
     ];
 
-    protected $endpointUrl = '/wow/character/';
+    protected $endpointUrl = '/wow/character/%s/%s';
 
-    public function get($realmSlug, $characterName, $fieldInt = 0){
+    public function __construct(string $realmSlug, string $characterName, int $fieldInt = 0){
         if($fieldInt !== 0) {
             $this->parameters['fields'] = $this->calcFields($fieldInt);
         }
-        $this->requestUrl = $this->endpointUrl . $realmSlug . '/' . $characterName;
-
-        return $this->sendRequest();
+        $this->setUrl($realmSlug, $characterName);
+        parent::__construct();
     }
 }

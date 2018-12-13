@@ -5,10 +5,10 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class PetAbility extends Endpoint
 {
-    protected $endpointUrl = '/wow/pet/ability/';
+    protected $endpointUrl = '/wow/pet/ability/%d';
 
-    public function get($abilityId){
-        $this->requestUrl .= $this->endpointUrl . $abilityId;
-        return $this->sendRequest();
+    public function __construct(int $abilityId){
+        $this->setUrl($abilityId);
+        parent::__construct();
     }
 }

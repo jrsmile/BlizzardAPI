@@ -5,10 +5,10 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Ladder extends Endpoint
 {
-    protected $endpointUrl = '/sc2/ladder/';
+    protected $endpointUrl = '/sc2/ladder/%d';
 
-    public function get($ladderId){
-        $this->requestUrl = $this->endpointUrl . $ladderId;
-        return $this->sendRequest();
+    public function __construct(int $ladderId){
+        $this->setUrl($ladderId);
+        parent::__construct();
     }
 }

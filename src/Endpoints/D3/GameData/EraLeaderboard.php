@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class EraLeaderboard extends Endpoint
 {
-    protected $endpointUrl = '/data/d3/era/';
+    protected $endpointUrl = '/data/d3/era/%d/leaderboard/%s';
 
-    public function get($eraId, $leaderboard){
-        $this->requestUrl .= $this->endpointUrl . "$eraId/leaderboard/$leaderboard";
-        return $this->sendRequest();
+    public function __construct(int $eraId, string $leaderboard)
+    {
+        $this->setUrl($eraId, $leaderboard);
+        parent::__construct();
     }
 }

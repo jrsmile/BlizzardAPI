@@ -1,23 +1,19 @@
 <?php
 namespace BlizzardApiService\Endpoints\Wow\GameData;
 
-use BlizzardApiService\Context\BlizzardApiContext;
+use BlizzardApiService\Context\BlizzardContext;
 use BlizzardApiService\Endpoints\Endpoint;
 
 class Region extends Endpoint
 {
 
-    protected $endpointUrl = '/data/wow/region/';
+    protected $endpointUrl = '/data/wow/region/%d';
     protected $namespace   = true;
 
-    public function __construct(BlizzardApiContext $blizzardApiContext)
+    public function __construct(int $regionId)
     {
-        parent::__construct($blizzardApiContext);
-        $this->namespace  = 'dynamic-' . strtolower($this->apiContext->getRegion());
-    }
-
-    public function get($regionId){
-        $this->requestUrl .= $this->endpointUrl . $regionId;
-        return $this->sendRequest();
+        $this->namespace  = 'dynamic-' . strtolower(BlizzardContext::getRegion());
+        $this->setUrl($regionId);
+        parent::__construct();
     }
 }

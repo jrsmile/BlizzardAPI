@@ -6,8 +6,4 @@ use BlizzardApiService\Endpoints\Endpoint;
 class EraIndex extends Endpoint
 {
     protected $endpointUrl = '/data/d3/era/';
-
-    public function get(){
-        return $this->sendRequest();
-    }
 }

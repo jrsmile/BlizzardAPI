@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Follower extends Endpoint
 {
-    protected $endpointUrl = '/d3/data/follower/';
+    protected $endpointUrl = '/d3/data/follower/%s';
 
-    public function get($followerSlug){
-        $this->requestUrl .= $this->endpointUrl . $followerSlug;
-        return $this->sendRequest();
+    public function __construct(string $followerSlug)
+    {
+        $this->setUrl($followerSlug);
+        parent::__construct();
     }
 }

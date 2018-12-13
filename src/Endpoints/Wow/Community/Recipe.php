@@ -5,10 +5,10 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Recipe extends Endpoint
 {
-    protected $endpointUrl = '/wow/recipe/';
+    protected $endpointUrl = '/wow/recipe/%d';
 
-    public function get($recipeId){
-        $this->requestUrl .= $this->endpointUrl . $recipeId;
-        return $this->sendRequest();
+    public function __construct($recipeId){
+        $this->setUrl($recipeId);
+        parent::__construct();
     }
 }

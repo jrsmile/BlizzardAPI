@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Artisan extends Endpoint
 {
-    protected $endpointUrl = '/d3/data/artisan/';
+    protected $endpointUrl = '/d3/data/artisan/%s';
 
-    public function get($artisanSlug){
-        $this->requestUrl .= $this->endpointUrl . $artisanSlug;
-        return $this->sendRequest();
+    public function __construct(string $artisanSlug)
+    {
+        $this->setUrl($artisanSlug);
+        parent::__construct();
     }
 }

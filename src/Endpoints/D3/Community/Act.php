@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Act extends Endpoint
 {
-    protected $endpointUrl = '/d3/data/act/';
+    protected $endpointUrl = '/d3/data/act/%d';
 
-    public function get($actId){
-        $this->requestUrl .= $this->endpointUrl . $actId;
-        return $this->sendRequest();
+    public function __construct(int $actId)
+    {
+        $this->setUrl($actId);
+        parent::__construct();
     }
 }

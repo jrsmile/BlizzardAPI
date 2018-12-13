@@ -5,13 +5,13 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class PetStats extends Endpoint
 {
-    protected $endpointUrl = '/wow/pet/stats/';
+    protected $endpointUrl = '/wow/pet/stats/%d';
 
-    public function get($speciesId, $level = 1, $breedId = 3, $qualityId = 1){
-        $this->requestUrl             .= $this->endpointUrl . $speciesId;
+    public function __construct(int $speciesId, int $level = 1, int $breedId = 3, int $qualityId = 1){
         $this->parameters['level']     = $level;
         $this->parameters['breedId']   = $breedId;
         $this->parameters['qualityId'] = $qualityId;
-        return $this->sendRequest();
+        $this->setUrl($speciesId);
+        parent::__construct();
     }
 }

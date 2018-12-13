@@ -2,7 +2,7 @@
 declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
-require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'TestOauthContext.php';
+require_once dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'TestContext.php';
 
 
 final class urlGeneratorD3CommunityTest extends TestCase
@@ -10,23 +10,22 @@ final class urlGeneratorD3CommunityTest extends TestCase
     public $apiContext = null;
     public $apiKey     = null;
     public function setUp(){
-        $this->apiKey = md5((string)rand(0, 100));
-        $this->apiContext = new TestContext('EU', 'de_DE');
-        $this->apiContext->setAccessToken($this->apiKey);
+        \BlizzardApiService\Context\BlizzardContext::setRegion('EU');
+        \BlizzardApiService\Context\BlizzardContext::setLocale('de_DE');
+        \BlizzardApiService\Context\BlizzardContext::setAccessToken(new \BlizzardApiService\Context\AccessToken('Foo', 0));
     }
 
 
     public function testAccount(){
         $requestedId = 'Battetag#1234';
-        $api      = new \BlizzardApiService\Endpoints\D3\Community\Account($this->apiContext);
-        $response = $api->get($requestedId);
-        $assertedUrl = "https://eu.api.blizzard.com/d3/profile/".urlencode($requestedId)."/?locale=de_DE&access_token={$this->apiKey}";
+        $response    = new \BlizzardApiService\Endpoints\D3\Community\Account($requestedId);
+        $assertedUrl = "https://eu.api.blizzard.com/d3/profile/".urlencode($requestedId)."/?locale=de_DE";
         $this->assertEquals($assertedUrl, $response->url);
     }
 
     public function testAct(){
         $requestedId = 1;
-        $api      = new \BlizzardApiService\Endpoints\D3\Community\Act($this->apiContext);
+        $api      = new \BlizzardApiService\Endpoints\D3\Community\Act($requestedId);
         $response = $api->get($requestedId);
         $assertedUrl = "https://eu.api.blizzard.com/d3/data/act/$requestedId?locale=de_DE&access_token={$this->apiKey}";
         $this->assertEquals($assertedUrl, $response->url);

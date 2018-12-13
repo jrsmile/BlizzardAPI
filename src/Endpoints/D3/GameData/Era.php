@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Era extends Endpoint
 {
-    protected $endpointUrl = '/data/d3/era/';
+    protected $endpointUrl = '/data/d3/era/%d';
 
-    public function get($eraId){
-        $this->requestUrl .= $this->endpointUrl . $eraId;
-        return $this->sendRequest();
+    public function __construct(int $eraId)
+    {
+        $this->setUrl($eraId);
+        parent::__construct();
     }
 }

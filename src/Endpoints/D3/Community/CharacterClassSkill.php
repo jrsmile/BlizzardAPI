@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class CharacterClassSkill extends Endpoint
 {
-    protected $endpointUrl = '/d3/data/hero/';
+    protected $endpointUrl = '/d3/data/hero/%s/skill/%s';
 
-    public function get($classSlug, $skillSlug){
-        $this->requestUrl .= $this->endpointUrl . "$classSlug/skill/$skillSlug";
-        return $this->sendRequest();
+    public function __construct(string $classSlug, string $skillSlug)
+    {
+        $this->setUrl($classSlug, $skillSlug);
+        parent::__construct();
     }
 }

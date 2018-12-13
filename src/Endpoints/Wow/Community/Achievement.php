@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Achievement extends Endpoint
 {
-    protected $endpointUrl = '/wow/achievement/';
+    protected $endpointUrl = '/wow/achievement/%d';
 
-    public function get($achievementId){
-        $this->requestUrl = $this->endpointUrl . $achievementId;
-        return $this->sendRequest();
+    public function __construct(int $achievementId)
+    {
+        $this->setUrl($achievementId);
+        parent::__construct();
     }
 }

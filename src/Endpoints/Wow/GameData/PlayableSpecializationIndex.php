@@ -1,7 +1,7 @@
 <?php
 namespace BlizzardApiService\Endpoints\Wow\GameData;
 
-use BlizzardApiService\Context\BlizzardApiContext;
+use BlizzardApiService\Context\BlizzardContext;
 use BlizzardApiService\Endpoints\Endpoint;
 
 class PlayableSpecializationIndex extends Endpoint
@@ -9,13 +9,9 @@ class PlayableSpecializationIndex extends Endpoint
     protected $endpointUrl = '/data/wow/playable-specialization/';
     protected $namespace   = true;
 
-    public function __construct(BlizzardApiContext $blizzardApiContext)
+    public function __construct()
     {
-        parent::__construct($blizzardApiContext);
-        $this->namespace  = 'static-' . strtolower($this->apiContext->getRegion());
-    }
-
-    public function get(){
-        return $this->sendRequest();
+        $this->namespace  = 'static-' . strtolower(BlizzardContext::getRegion());
+        parent::__construct();
     }
 }

@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class Boss extends Endpoint
 {
-    protected $endpointUrl = '/wow/boss/';
+    protected $endpointUrl = '/wow/boss/%d';
 
-    public function get($bossId){
-        $this->requestUrl .= $this->endpointUrl . $bossId;
-        return $this->sendRequest();
+    public function __construct(int $bossId)
+    {
+        $this->setUrl($bossId);
+        parent::__construct();
     }
 }

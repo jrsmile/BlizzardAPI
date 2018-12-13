@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class HeroItems extends Endpoint
 {
-    protected $endpointUrl = '/d3/profile/';
+    protected $endpointUrl = '/d3/profile/%s/hero/%d/items';
 
-    public function get($battleTag, $heroId){
-        $this->requestUrl .= $this->endpointUrl . urlencode($battleTag) . "/hero/$heroId/items";
-        return $this->sendRequest();
+    public function __construct(string $battleTag, int $heroId)
+    {
+        $this->setUrl(urlencode($battleTag), $heroId);
+        parent::__construct();
     }
 }

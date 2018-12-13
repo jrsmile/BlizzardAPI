@@ -5,10 +5,11 @@ use BlizzardApiService\Endpoints\Endpoint;
 
 class SeasonLeaderboard extends Endpoint
 {
-    protected $endpointUrl = '/data/d3/season/';
+    protected $endpointUrl = '/data/d3/season/%d/leaderboard/%d';
 
-    public function get($seasonId, $leaderboard){
-        $this->requestUrl .= $this->endpointUrl . "$seasonId/leaderboard/$leaderboard";
-        return $this->sendRequest();
+    public function __construct(int $seasonId, string $leaderboard)
+    {
+        $this->setUrl($seasonId, $leaderboard);
+        parent::__construct();
     }
 }
