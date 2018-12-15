@@ -8,7 +8,6 @@ class TokenPrice extends Endpoint
 {
 
     protected $endpointUrl = '/data/wow/token/';
-    protected $namespace   = true;
 
     public function __construct(BlizzardApiContext $blizzardApiContext)
     {
