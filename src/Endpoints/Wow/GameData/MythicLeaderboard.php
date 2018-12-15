@@ -4,9 +4,9 @@ namespace BlizzardApiService\Endpoints\Wow\GameData;
 use BlizzardApiService\Context\BlizzardApiContext;
 use BlizzardApiService\Endpoints\Endpoint;
 
-class ConnectedRealmIndex extends Endpoint
+class MythicLeaderboard extends Endpoint
 {
-    protected $endpointUrl = '/data/wow/connected-realm/';
+    protected $endpointUrl = '/data/wow/connected-realm/%d/mythic-leaderboard/%d/period/%d';
 
     public function __construct(BlizzardApiContext $blizzardApiContext)
     {
@@ -14,7 +14,8 @@ class ConnectedRealmIndex extends Endpoint
         $this->namespace  = 'dynamic-' . strtolower($this->apiContext->getRegion());
     }
 
-    public function get(){
+    public function get(int $connectedRealmId, int $dungeonId, int $periodId){
+        $this->requestUrl = sprintf($this->endpointUrl, $connectedRealmId, $dungeonId, $periodId);
         return $this->sendRequest();
     }
 }

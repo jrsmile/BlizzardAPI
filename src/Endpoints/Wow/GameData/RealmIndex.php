@@ -7,7 +7,6 @@ use BlizzardApiService\Endpoints\Endpoint;
 class RealmIndex extends Endpoint
 {
     protected $endpointUrl = '/data/wow/realm/';
-    protected $namespace   = true;
 
     public function __construct(BlizzardApiContext $blizzardApiContext)
     {

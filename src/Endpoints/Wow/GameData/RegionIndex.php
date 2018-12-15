@@ -7,7 +7,6 @@ use BlizzardApiService\Endpoints\Endpoint;
 class RegionIndex extends Endpoint
 {
     protected $endpointUrl = '/data/wow/region/';
-    protected $namespace   = true;
 
     public function __construct(BlizzardApiContext $blizzardApiContext)
     {
